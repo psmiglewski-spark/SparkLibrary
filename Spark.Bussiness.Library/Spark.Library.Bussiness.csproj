@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="CeidgClientData.cs" />
     <Compile Include="ClientData.cs" />
+    <Compile Include="Currency.cs" />
+    <Compile Include="CurrencyTables.cs" />
     <Compile Include="GusClientData.cs" />
     <Compile Include="IBussiness.cs" />
     <Compile Include="KwotaSlownie.cs" />
@@ -60,6 +62,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Spark.Setup.ConfigFile\Spark.Setup.csproj">
+      <Project>{f24a15c1-93bf-457c-85e1-96c53ae66274}</Project>
+      <Name>Spark.Setup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SparkLibrary.Web\Spark.Library.Web.csproj">
+      <Project>{502f03f2-050a-4d9b-b260-7f0d0bc77a64}</Project>
+      <Name>Spark.Library.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

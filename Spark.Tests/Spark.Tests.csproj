@@ -16,4 +16,11 @@
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Spark.Bussiness.Library\Spark.Library.Bussiness.csproj" />
+    <ProjectReference Include="..\Spark.Invoice.Data\Spark.Invoice.Data.csproj" />
+    <ProjectReference Include="..\Spark.Setup.ConfigFile\Spark.Setup.csproj" />
+    <ProjectReference Include="..\SparkLibrary.Web\Spark.Library.Web.csproj" />
+  </ItemGroup>
+
 </Project>

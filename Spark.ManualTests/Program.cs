@@ -3,7 +3,6 @@ using System.Security;
 using System.Security.Cryptography.X509Certificates;
 using SparkLibrary.Web;
 using Spark.Bussiness.Library;
-using Spark.Data.Services;
 
 namespace Spark.ManualTests
 {
@@ -25,14 +24,14 @@ namespace Spark.ManualTests
            Console.WriteLine(securityTest.GetEncryptString("SPARK", "piotr"));
            var encrypedString = securityTest.GetEncryptString("SPARK", "piotr");
            Console.WriteLine(securityTest.GetDecryptedString(encrypedString, "piotr"));
-           ICompanyData companyData;
-           companyData = new DbCompanyData();
-           var companyList = companyData.GetAll();
-           foreach (var company in companyList)
-           {
-               Console.WriteLine(company.Name);
-               Console.WriteLine(company.AddressCity);
-           }
+           //ICompanyData companyData;
+           ////companyData = new DbCompanyData();
+           //var companyList = companyData.GetAll();
+           //foreach (var company in companyList)
+           //{
+           //    Console.WriteLine(company.Name);
+           //    Console.WriteLine(company.AddressCity);
+           //}
 
         }
 
