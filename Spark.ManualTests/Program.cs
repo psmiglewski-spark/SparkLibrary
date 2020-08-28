@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security;
 using System.Security.Cryptography.X509Certificates;
 using SparkLibrary.Web;
 using Spark.Bussiness.Library;
+using Spark.Invoice.Data.Models;
+using Spark.Invoice.Data.Services;
 
 namespace Spark.ManualTests
 {
@@ -32,7 +36,10 @@ namespace Spark.ManualTests
            //    Console.WriteLine(company.Name);
            //    Console.WriteLine(company.AddressCity);
            //}
-
+           var db = new DbCompanyData(@"Server=ACERLAPTOP\SPARKDBENGINE;Database=InvoiceManager;User Id=sa;Password=PIotreck1;");
+           //List<Company> tabela = new List<Company>();
+           var tabela = db.GetAll().ToList();
+           Console.WriteLine(tabela[0].NIP);
         }
 
         private static void Sender_MessageSent(object sender, EventArgs args)

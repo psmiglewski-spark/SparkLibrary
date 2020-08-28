@@ -4,24 +4,18 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
-
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mail.dll" Version="3.0.20174.2011" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Spark.Bussiness.Library\Spark.Library.Bussiness.csproj" />
     <ProjectReference Include="..\Spark.Invoice.Data\Spark.Invoice.Data.csproj" />
     <ProjectReference Include="..\Spark.Setup.ConfigFile\Spark.Setup.csproj" />
-    <ProjectReference Include="..\SparkLibrary.Web\Spark.Library.Web.csproj" />
   </ItemGroup>
 
 </Project>

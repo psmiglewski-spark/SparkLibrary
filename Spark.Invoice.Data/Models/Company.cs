@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Spark.Invoice.Data.Models
 {
-    class Company
+    public class Company
     {
         public int Id { get; set; }
         public string NIP { get; set; }
@@ -27,7 +27,6 @@ namespace Spark.Invoice.Data.Models
         public string SWIFT { get; set; }
         public string Account_Bank { get; set; }
         public string Email { get; set; }
-        public int SplitPayment { get; set; }
         public string WWW { get; set; }
     }
 }

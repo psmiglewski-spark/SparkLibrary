@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Mail.dll" Version="3.0.20174.2011" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Spark.Bussiness.Library\Spark.Library.Bussiness.csproj" />
+    <ProjectReference Include="..\Spark.Invoice.Data\Spark.Invoice.Data.csproj" />
    
     <ProjectReference Include="..\Spark.Setup.ConfigFile\Spark.Setup.csproj" />
     <ProjectReference Include="..\SparkInvoiceManager\Spark.Invoice.Manager.WPF.csproj" />

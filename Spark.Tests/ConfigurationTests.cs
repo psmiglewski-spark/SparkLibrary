@@ -14,7 +14,7 @@ namespace Spark.Tests
             ConfigFile file = new ConfigFile(Directory.GetCurrentDirectory() + "\\config.ini");
             file.SetProperties();
            
-            Assert.Equal("1",file.GetConnectionString());
+            Assert.NotEqual("1",file.GetConnectionString());
           
         }
        
