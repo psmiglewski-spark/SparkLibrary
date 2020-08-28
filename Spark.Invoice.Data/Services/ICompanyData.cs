@@ -10,9 +10,9 @@ namespace Spark.Invoice.Data.Services
     interface ICompanyData
     {
         IEnumerable<Company> GetAll();
-        Company SelectCompanyById();
-        Company SelectCompanyByNip();
-        Company SelectCompanyByName();
+        Company SelectCompanyById(int _id);
+        Company SelectCompanyByNip(string _nip);
+        Company SelectCompanyByName(string _name);
         void AddNewCompany(Company company);
         void EditCompanyData(Company company);
         void DeleteCompany(Company company);

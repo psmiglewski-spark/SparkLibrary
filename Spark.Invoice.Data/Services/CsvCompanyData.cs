@@ -14,17 +14,17 @@ namespace Spark.Invoice.Data.Services
             throw new NotImplementedException();
         }
 
-        public Company SelectCompanyById()
+        public Company SelectCompanyById(int _id)
         {
             throw new NotImplementedException();
         }
 
-        public Company SelectCompanyByNip()
+        public Company SelectCompanyByNip(string _nip)
         {
             throw new NotImplementedException();
         }
 
-        public Company SelectCompanyByName()
+        public Company SelectCompanyByName(string _name)
         {
             throw new NotImplementedException();
         }
