@@ -28,5 +28,28 @@ namespace Spark.Invoice.Data.Models
         public string Account_Bank { get; set; }
         public string Email { get; set; }
         public string WWW { get; set; }
+
+        public Company()
+        {
+            this.Id = 0;
+            this.Name = " ";
+            this.Short_Name = " ";
+            this.Address_Street = " ";
+            this.Address_Pos_Number = " ";
+            this.Address_Loc_Number = " ";
+            this.Address_Postal_Code = " ";
+            this.Address_City = " ";
+            this.Address_Country = " ";
+            this.Client_Type = " ";
+            this.Discount = 0;
+            this.Payment_Method = " ";
+            this.Phone_Number = " ";
+            this.Account_Number = " ";
+            this.Mobile_Phone = " ";
+            this.SWIFT = " ";
+            this.Account_Bank = " ";
+            this.Email = " ";
+            this.WWW = " ";
+        }
     }
 }

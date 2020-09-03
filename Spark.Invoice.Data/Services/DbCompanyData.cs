@@ -103,7 +103,6 @@ namespace Spark.Invoice.Data.Services
                 @"INSERT INTO dbo.Company(NIP, Name, Short_Name, Address_Street, Address_Pos_Number, Address_Loc_Number, Address_Postal_Code, Address_City, Address_Country, Client_Type, Discount, Payment_Method, Phone_Number, Account_Number, Mobile_Phone, SWIFT, Account_Bank, Email, WWW) 
                                                 Values(@NIP, @Name, @Short_Name, @Address_Street, @Address_Pos_Number, @Address_Loc_Number, @Address_Postal_Code, @Address_City, @Address_Country, @Client_Type, @Discount, @Payment_Method, @Phone_Number, @Account_Number, @Mobile_Phone, @SWIFT, @Account_Bank, @Email, @WWW)";
             var sqlCommand = new SqlCommand(sqlQuerry,sqlConnection);
-            sqlCommand.Parameters.AddWithValue("@Id", company.Id);
             sqlCommand.Parameters.AddWithValue("@Name", company.Name);
             sqlCommand.Parameters.AddWithValue("@Short_Name", company.Short_Name);
             sqlCommand.Parameters.AddWithValue("@Address_Street", company.Address_Street);
@@ -142,12 +141,92 @@ namespace Spark.Invoice.Data.Services
 
         public void EditCompanyData(Company company)
         {
-            throw new NotImplementedException();
+            var ds = new DataTable();
+            var sqlConnection = new SqlConnection(connectionString);
+            var sqlQuerry =
+                @"UPDATE dbo.Company set NIP = @NIP,
+                                         Name = @Name,
+                                         Short_Name = @Short_Name, 
+                                         Address_Street = @Address_Street, 
+                                         Address_Pos_Number = @Address_Pos_Number, 
+                                         Address_Loc_Number = @Address_Loc_Number, 
+                                         Address_Postal_Code = @Address_Postal_Code, 
+                                         Address_City = @Address_City, 
+                                         Address_Country = @Address_Country, 
+                                         Client_Type = @Client_Type, 
+                                         Discount = @Discount, 
+                                         Payment_Method = @Payment_Method, 
+                                         Phone_Number = @Phone_Number, 
+                                         Account_Number = @Account_Number, 
+                                         Mobile_Phone = @Mobile_Phone, 
+                                         SWIFT = @SWIFT, 
+                                         Account_Bank = @Account_Bank, 
+                                         Email = @Email, 
+                                         WWW = @WWW
+                WHERE Id = @Id";
+            var sqlCommand = new SqlCommand(sqlQuerry, sqlConnection);
+            sqlCommand.Parameters.AddWithValue("@Id", company.Id);
+            sqlCommand.Parameters.AddWithValue("@Name", company.Name);
+            sqlCommand.Parameters.AddWithValue("@Short_Name", company.Short_Name);
+            sqlCommand.Parameters.AddWithValue("@Address_Street", company.Address_Street);
+            sqlCommand.Parameters.AddWithValue("@Address_Pos_Number", company.Address_Pos_Number);
+            sqlCommand.Parameters.AddWithValue("@Address_Loc_Number", company.Address_Loc_Number);
+            sqlCommand.Parameters.AddWithValue("@Address_Postal_Code", company.Address_Postal_Code);
+            sqlCommand.Parameters.AddWithValue("@Address_City", company.Address_City);
+            sqlCommand.Parameters.AddWithValue("@Address_Country", company.Address_Country);
+            sqlCommand.Parameters.AddWithValue("@Client_Type", company.Client_Type);
+            sqlCommand.Parameters.AddWithValue("@Discount", company.Discount);
+            sqlCommand.Parameters.AddWithValue("@Payment_Method", company.Payment_Method);
+            sqlCommand.Parameters.AddWithValue("@Phone_Number", company.Phone_Number);
+            sqlCommand.Parameters.AddWithValue("@Account_Number", company.Account_Number);
+            sqlCommand.Parameters.AddWithValue("@Mobile_Phone", company.Mobile_Phone);
+            sqlCommand.Parameters.AddWithValue("@SWIFT", company.SWIFT);
+            sqlCommand.Parameters.AddWithValue("@Account_Bank", company.Account_Bank);
+            sqlCommand.Parameters.AddWithValue("@Email", company.Email);
+            sqlCommand.Parameters.AddWithValue("@WWW", company.WWW);
+
+            try
+            {
+                sqlConnection.Open();
+                sqlCommand.ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
         }
 
         public void DeleteCompany(Company company)
         {
-            throw new NotImplementedException();
+            var ds = new DataTable();
+            var sqlConnection = new SqlConnection(connectionString);
+            var sqlQuerry =
+                @"DELETE FROM dbo.Company where Id = @Id";
+            var sqlCommand = new SqlCommand(sqlQuerry, sqlConnection);
+            sqlCommand.Parameters.AddWithValue("@Id", company.Id);
+           
+
+            try
+            {
+                sqlConnection.Open();
+                sqlCommand.ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
         }
     }
 }
