@@ -46,10 +46,8 @@
   <ItemGroup>
     <Compile Include="Models\Company.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\CsvCompanyData.cs" />
     <Compile Include="Services\DbCompanyData.cs" />
     <Compile Include="Services\ICompanyData.cs" />
-    <Compile Include="Services\XmlCompanyData.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

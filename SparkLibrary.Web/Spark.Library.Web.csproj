@@ -92,6 +92,7 @@
     <Compile Include="ISecurity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security.cs" />
+    <Compile Include="SparkIO.cs" />
     <Compile Include="StringCrypt.cs" />
   </ItemGroup>
   <ItemGroup>

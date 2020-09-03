@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security;
 using System.Security.Cryptography.X509Certificates;
@@ -39,6 +40,20 @@ namespace Spark.ManualTests
            var db = new DbCompanyData(@"Server=ACERLAPTOP\SPARKDBENGINE;Database=InvoiceManager;User Id=sa;Password=PIotreck1;");
            //List<Company> tabela = new List<Company>();
            var tabela = db.GetAll().ToList();
+           var companybyid = db.SelectCompanyById(1);
+           SparkIO.SerializeToXml(tabela, Directory.GetCurrentDirectory() + "\\companies.xml");
+           var companyNip = db.SelectCompanyByNip("6972171117");
+           Console.WriteLine(companybyid.Name + " " + companyNip.Name);
+           try
+           {
+               var companyName = db.SelectCompanyByName("SPARK Piotr Śmiglewski");
+               Console.WriteLine(companyName.Name);
+           }
+           catch (Exception e)
+           {
+               Console.WriteLine("Brak takiej firmy" + e);
+               
+           }
            Console.WriteLine(tabela[0].NIP);
         }
 
