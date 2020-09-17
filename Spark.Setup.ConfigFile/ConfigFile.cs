@@ -70,6 +70,8 @@ namespace Spark.Setup
 
         public string GetConnectionString()
         {
+            this.filePath = filePath; //var a = GetInstallationPath() + @"\config.ini";
+            SetProperties();
             return connectionString;
         }
 

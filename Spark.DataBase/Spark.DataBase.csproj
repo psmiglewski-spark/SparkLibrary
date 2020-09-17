@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EEE72391-B3AF-4972-B57C-8225DE23470E}</ProjectGuid>
+    <ProjectGuid>{99D04A14-7064-4D01-A1C5-5C00F8029230}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Spark.Invoice.Data</RootNamespace>
-    <AssemblyName>Spark.Invoice.Data</AssemblyName>
+    <RootNamespace>Spark.DataBase</RootNamespace>
+    <AssemblyName>Spark.DataBase</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -33,9 +33,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SqlClient, Version=4.6.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SqlClient.4.8.2\lib\net461\System.Data.SqlClient.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,30 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Company.cs" />
-    <Compile Include="Models\Invoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\DbCompanyData.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Spark.DataBase\Spark.DataBase.csproj">
-      <Project>{99d04a14-7064-4d01-a1c5-5c00f8029230}</Project>
-      <Name>Spark.DataBase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Spark.Setup.ConfigFile\Spark.Setup.csproj">
-      <Project>{f24a15c1-93bf-457c-85e1-96c53ae66274}</Project>
-      <Name>Spark.Setup</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SparkLibrary.Web\Spark.Library.Web.csproj">
-      <Project>{502f03f2-050a-4d9b-b260-7f0d0bc77a64}</Project>
-      <Name>Spark.Library.Web</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -37,16 +37,16 @@ namespace Spark.ManualTests
            //    Console.WriteLine(company.Name);
            //    Console.WriteLine(company.AddressCity);
            //}
-           var db = new DbCompanyData(@"Server=ACERLAPTOP\SPARKDBENGINE;Database=InvoiceManager;User Id=sa;Password=PIotreck1;");
+           //var db = new DbCompanyData(@"Server=ACERLAPTOP\SPARKDBENGINE;Database=InvoiceManager;User Id=sa;Password=PIotreck1;");
            //List<Company> tabela = new List<Company>();
-           var tabela = db.GetAll().ToList();
-           var companybyid = db.SelectCompanyById(1);
+           var tabela =(List<Company>)DbCompanyData.SelectAll();
+           var companybyid = DbCompanyData.SelectCompanyById(1);
            SparkIO.SerializeToXml(tabela, Directory.GetCurrentDirectory() + "\\companies.xml");
-           var companyNip = db.SelectCompanyByNip("6972171117");
+           var companyNip = DbCompanyData.SelectCompanyByNip("6972171117");
            Console.WriteLine(companybyid.Name + " " + companyNip.Name);
            try
            {
-               var companyName = db.SelectCompanyByName("SPARK Piotr Śmiglewski");
+               var companyName = DbCompanyData.SelectCompanyByName("SPARK Piotr Śmiglewski");
                Console.WriteLine(companyName.Name);
            }
            catch (Exception e)

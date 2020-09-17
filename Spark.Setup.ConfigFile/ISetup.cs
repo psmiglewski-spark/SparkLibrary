@@ -8,6 +8,6 @@ namespace Spark.Setup
 {
     interface ISetup
     {
-        void SetProperties();
+         void SetProperties();
     }
 }

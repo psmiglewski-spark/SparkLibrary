@@ -7,22 +7,25 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Spark.Invoice.Data.Models;
+using Spark.Setup;
+using SparkLibrary.Web;
 
 namespace Spark.Invoice.Data.Services
 {
-    public class DbCompanyData
+    public class DbCompanyData 
     {
-        public string connectionString { get; set; }
+        //public string connectionString { get; set; }
 
-        public DbCompanyData(string _connectionString)
-        {
-            this.connectionString = _connectionString;
-        }
+        //public DbCompanyData(string _connectionString)
+        //{
+        //    this.connectionString = _connectionString;
+        //}
 
-        public IEnumerable<Company> GetAll()
+        public static IEnumerable<Company> SelectAll()
         {
+            var config = new ConfigFile(System.IO.Directory.GetCurrentDirectory() + @"\config.ini");
             var ds = new DataTable();
-            SqlConnection sqlConnection = new SqlConnection(connectionString);
+            SqlConnection sqlConnection = new SqlConnection(config.GetConnectionString());
             var sqlCommand = "select * from dbo.Company";
             sqlConnection.Open();
             try
@@ -68,37 +71,34 @@ namespace Spark.Invoice.Data.Services
             return companyList;
         }
 
-        public Company SelectCompanyById(int _id)
+        public static Company SelectCompanyById(int _id)
         {
-            var companyList = GetAll();
-            var companyDict = companyList.ToDictionary(x =>x.Id);
-            companyDict.TryGetValue(_id, out var company);
+            var companyList = (List<Company>)SelectAll();
+            var company = companyList.Single(x => x.Id == _id);
+            return company;
+        }
+
+        public static Company SelectCompanyByNip(string _nip)
+        {
+            var companyList = (List<Company>)SelectAll();
+            var company = companyList.First(x => x.NIP == _nip);
 
             return company;
         }
 
-        public Company SelectCompanyByNip(string _nip)
+        public static Company SelectCompanyByName(string _name)
         {
-            var companyList = GetAll();
-            var companyDict = companyList.ToDictionary(x => x.NIP);
-            companyDict.TryGetValue(_nip, out var company);
-
+            var companyList = (List<Company>)SelectAll();
+            var company = companyList.First(x => x.Name == _name);
             return company;
         }
 
-        public Company SelectCompanyByName(string _name)
+        public static void Insert(Object _company)
         {
-            var companyList = GetAll();
-            var companyDict = companyList.ToDictionary(x => x.Name);
-            companyDict.TryGetValue(_name, out var company);
-
-            return company;
-        }
-
-        public void AddNewCompany(Company company)
-        {
+            var company = (Company)_company;
+            var config = new ConfigFile(System.IO.Directory.GetCurrentDirectory() + @"\config.ini");
             var ds = new DataTable();
-            var sqlConnection = new SqlConnection(connectionString);
+            var sqlConnection = new SqlConnection(config.GetConnectionString());
             var sqlQuerry =
                 @"INSERT INTO dbo.Company(NIP, Name, Short_Name, Address_Street, Address_Pos_Number, Address_Loc_Number, Address_Postal_Code, Address_City, Address_Country, Client_Type, Discount, Payment_Method, Phone_Number, Account_Number, Mobile_Phone, SWIFT, Account_Bank, Email, WWW) 
                                                 Values(@NIP, @Name, @Short_Name, @Address_Street, @Address_Pos_Number, @Address_Loc_Number, @Address_Postal_Code, @Address_City, @Address_Country, @Client_Type, @Discount, @Payment_Method, @Phone_Number, @Account_Number, @Mobile_Phone, @SWIFT, @Account_Bank, @Email, @WWW)";
@@ -139,10 +139,12 @@ namespace Spark.Invoice.Data.Services
             }
         }
 
-        public void EditCompanyData(Company company)
+        public static void Update(Object _company)
         {
+            var company = (Company)_company;
+            var config = new ConfigFile(System.IO.Directory.GetCurrentDirectory() + @"\config.ini");
             var ds = new DataTable();
-            var sqlConnection = new SqlConnection(connectionString);
+            var sqlConnection = new SqlConnection(config.GetConnectionString());
             var sqlQuerry =
                 @"UPDATE dbo.Company set NIP = @NIP,
                                          Name = @Name,
@@ -202,10 +204,12 @@ namespace Spark.Invoice.Data.Services
             }
         }
 
-        public void DeleteCompany(Company company)
+        public static void Delete(Object _company)
         {
+            var company = (Company)_company;
+            var config = new ConfigFile(System.IO.Directory.GetCurrentDirectory() + @"\config.ini");
             var ds = new DataTable();
-            var sqlConnection = new SqlConnection(connectionString);
+            var sqlConnection = new SqlConnection(config.GetConnectionString());
             var sqlQuerry =
                 @"DELETE FROM dbo.Company where Id = @Id";
             var sqlCommand = new SqlCommand(sqlQuerry, sqlConnection);
