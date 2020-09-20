@@ -12,6 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Spark.Invoice.Data;
+using Spark.Invoice.Data.Context;
+using Spark.Invoice.Data.Models;
+using Spark.Invoice.Data.Services;
+using SparkInvoiceManager.Views;
 
 namespace SparkInvoiceManager
 {
@@ -20,9 +25,12 @@ namespace SparkInvoiceManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        LoginView loginView = new LoginView();
+       
         public MainWindow()
         {
             InitializeComponent();
-        }
-    }
+            MainGrid.Children.Add(loginView);
+        } 
+    } 
 }

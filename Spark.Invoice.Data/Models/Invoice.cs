@@ -8,7 +8,7 @@ using Spark.Setup;
 
 namespace Spark.Invoice.Data.Models
 {
-    class Invoice
+    public class Invoice
     {
         public int Id { get; set; }
         public string Invoice_Number { get; set; }
@@ -18,7 +18,7 @@ namespace Spark.Invoice.Data.Models
         public DateTime Sale_Date { get; set; }
         public DateTime Payment_Date { get; set; }
         public string Payment_Method { get; set; }
-        public string Payment_Account { get; set; }
+        public BankAccount Payment_Account { get; set; }
         public int SplitPayment { get; set; }
         public string Note { get; set; }
         public float Net_Value { get; set; }
@@ -29,6 +29,5 @@ namespace Spark.Invoice.Data.Models
         public string Currency { get; set; }
         public float Currency_Change_Rate { get; set; }
         public string Kwota_Slownie { get; set; }
-        public string VAT_Account { get; set; }
     }
 }

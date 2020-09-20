@@ -1,0 +1,10 @@
+System.IO.FileNotFoundException: Could not find file 'C:\Users\Piotr\source\repos\SparkLibrary\Spark.ManualTests\config.ini'.
+File name: 'C:\Users\Piotr\source\repos\SparkLibrary\Spark.ManualTests\config.ini'
+   at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamReader.ValidateArgsAndOpenPath(String path, Encoding encoding, Int32 bufferSize)
+   at System.IO.StreamReader..ctor(String path, Encoding encoding)
+   at System.IO.File.InternalReadAllLines(String path, Encoding encoding)
+   at System.IO.File.ReadAllLines(String path, Encoding encoding)
+   at Spark.Setup.ConfigFile.SetProperties() in C:\Users\Piotr\source\repos\SparkLibrary\Spark.Setup.ConfigFile\ConfigFile.cs:line 29

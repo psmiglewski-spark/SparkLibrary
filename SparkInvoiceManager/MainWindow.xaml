@@ -7,11 +7,6 @@
         xmlns:webForms="clr-namespace:Microsoft.Reporting.WebForms;assembly=Microsoft.ReportViewer.WebForms"
         xmlns:winForms="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="0*"/>
-        </Grid.ColumnDefinitions>
-    </Grid>
+        Title="MainWindow" WindowStartupLocation="CenterScreen" Height="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenWidthKey}}">
+        <Grid x:Name="MainGrid"/>
 </Window>
