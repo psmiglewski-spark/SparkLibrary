@@ -68,13 +68,16 @@ namespace Spark.ManualTests
             //    Console.WriteLine("Ihahah");
             //    Console.ReadLine();
             var addresses = new List<Address>(); 
-            var address = new Address() { Address_Street = "55 pułku piechoty 2" };
+            var address = new Address() { Address_Full = "55 pułku piechoty 3" };
+            var addresses2 = new List<Address>();
+            var address2 = new Address() { Address_Full = "55 pułku piechoty 32" };
             addresses.Add(address) ;
-            var company = new Company() { Name = "Spark", Address = addresses};
-            var newcompany = new Company() { Name = "Spark12", Address = addresses};
-            var user = new User(){UserName = "Piotr", Password = "PIotreck1"};
-            //company.AddCompany();
-            user.AddUser();
+            addresses2.Add(address2);
+            var company = new Company() { Name = "Sparknew", Address = addresses};
+            var newcompany = new Company() { Name = "Spark12", Address = addresses2};
+            //var user = new User(){UserName = "Piotr", Password = "PIotreck1"};
+            company.AddCompany();
+            //user.AddUser();
            
             //company.AddCompany();
             

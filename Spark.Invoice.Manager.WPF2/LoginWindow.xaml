@@ -1,0 +1,29 @@
+﻿<Window x:Class="Spark.Invoice.Manager.WPF2.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Spark.Invoice.Manager.WPF2"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="250" Width="350" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1">
+            <TextBlock x:Name="loginLbl" Text="Login" Width="200"></TextBlock>
+            <TextBox x:Name="loginTextBox" Width="200"></TextBox>
+            <TextBlock x:Name="passwordLbl" Text="Hasło" Width="200"></TextBlock>
+            <PasswordBox x:Name="passwordBox" Width="200"></PasswordBox>
+            <Label x:Name="wrongPasswordLabel" Content="Podano błędne hasło" Visibility="Collapsed" Foreground="Red"></Label>
+            <WrapPanel HorizontalAlignment="Right">
+                <Button x:Name="LoginBtn" Click="LoginBtn_OnClick" Content="Zaloguj" Margin="10"></Button>
+                <Button x:Name ="CloseBtn" Click="CloseBtn_OnClick" Content="Zamknij" Margin="10"></Button>
+            </WrapPanel>
+            <Label x:Name="restorePasswordLbl" Content="Nie pamiętam hasła" Visibility="Collapsed" HorizontalAlignment="Right" Foreground="Red" MouseDoubleClick="Control_OnMouseDoubleClick"></Label>
+        </StackPanel>
+        <Image Source="Images/spark.png" Grid.ColumnSpan="2" Height="80" VerticalAlignment="Top" Margin="5"></Image>
+        <TextBlock TextAlignment="Center" Grid.ColumnSpan="2" Text="Invoice Manager v. 1.01" VerticalAlignment="Bottom"></TextBlock>
+    </Grid>
+</Window>

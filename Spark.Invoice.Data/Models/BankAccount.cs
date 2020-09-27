@@ -10,10 +10,10 @@ namespace Spark.Invoice.Data.Models
     public class BankAccount
     {
         
-        public BankAccount()
-        {
-            BankAccounts = new List<IdBankAccounts>();
-        }
+        //public BankAccount()
+        //{
+        //    BankAccounts = new List<IdBankAccounts>();
+        //}
         
         public int ID { get; set; } 
         public string AccountNumber { get; set; }
@@ -21,7 +21,7 @@ namespace Spark.Invoice.Data.Models
         public string SWIFT { get; set; }
         public string BankName { get; set; }
         public bool Active { get; set; }
-        public List<IdBankAccounts> BankAccounts { get; set; }
+       // public List<IdBankAccounts> BankAccounts { get; set; }
        
     }
 }

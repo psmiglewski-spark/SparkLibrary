@@ -19,6 +19,9 @@ namespace Spark.Invoice.Data.Context
         public DbSet<Currency> Currencies { get; set; }     
         public ClientType ClientTypes { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<IsLogged> IsLogged { get; set; }
+        public DbSet<IndividualRights> IndividualRights { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -27,10 +30,10 @@ namespace Spark.Invoice.Data.Context
             
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<CompanyAddress>().HasKey(c => new {c.AddressId, c.CompanyId});
-            modelBuilder.Entity<IdBankAccounts>().HasKey(b => new { b.CompanyId, b.BankAccountId });
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<CompanyAddress>().HasKey(c => new {c.AddressId, c.CompanyId});
+        //    modelBuilder.Entity<IdBankAccounts>().HasKey(b => new { b.CompanyId, b.BankAccountId });
+        //}
     }
 }

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Spark.Invoice.Data.Context;
+using Spark.Invoice.Data.Models;
+using Spark.Invoice.Data.Services;
 using SparkLibrary.Web;
 using Color = System.Drawing.Color;
 
@@ -14,6 +18,7 @@ namespace SparkInvoiceManager.Views
 {
     class LoginView : Grid
     {
+        
         Label loginLabel = new Label()
         {
             Content = "Login:",
@@ -108,12 +113,25 @@ namespace SparkInvoiceManager.Views
                 var selectedUser = context.Users.Where(u => u.UserName == loginTextBox.Text).Single();
                 if (selectedUser.Password == passwordBox.Password.Hash())
                 {
+                    var processInfo = new Process();
+                    processInfo = Process.GetCurrentProcess();
+                    
                     this.Children.Clear();
+                    this.IsEnabled = false;
+                    IsLogged isLogged = new IsLogged();
+                    isLogged.UserName = selectedUser.UserName;
+                    isLogged.Role = (int)selectedUser.UserRole;
+                    isLogged.Session = processInfo.Id.ToString();
+                    isLogged.ComputerName = Environment.MachineName;
+                    isLogged.AddIsLogged();
+                    
+                    
                 }
                 else
                 {
                     passwordBox.Background = new SolidColorBrush(Colors.Red);
                     Children.Add(wrongPasswordLabel);
+
                 }
             }
             else

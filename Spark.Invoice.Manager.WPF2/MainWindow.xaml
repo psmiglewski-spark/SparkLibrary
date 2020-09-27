@@ -1,0 +1,112 @@
+﻿<Window x:Class="Spark.Invoice.Manager.WPF2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Spark.Invoice.Manager.WPF2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="768" Width="1024">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- Left sidebar buttons -->
+        <Grid Grid.Row ="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition>
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <ListView Grid.Row="1" BorderBrush="{x:Null}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="CustomersBtn"  Width="134" Margin="10 10" Click="CustomersBtn_OnClickButton_Click" Background="LightBlue" Grid.Row="0">
+                        <Button.Content>
+                            <StackPanel >
+                                
+                                <TextBlock Text="Kontrahenci" Margin="0 5 0 0" HorizontalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button x:Name="AddCustomerBtn" Visibility="Collapsed" Height="30" Width="140"  Grid.Row="1" Margin="30 0 0 0" Background="LightBlue" FontSize="10">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                
+                                <TextBlock Text="Dodaj kontrahenta"  VerticalAlignment="Top" FontSize="11"></TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                </Grid>
+                <Button x:Name="InvoiceBtn" VerticalAlignment="Top" Width="134" HorizontalAlignment="Center" Margin="10 10" Click="InvoiceBtn_OnClickButton_Click" Background="LightBlue">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source ="Images/invoiceicon.png" Height="20" HorizontalAlignment="Left"></Image>
+                            <TextBlock Text="Faktury" Margin="0 5 0 0"></TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="UsersBtn" VerticalAlignment="Top" Width="134" HorizontalAlignment="Center" Margin="10 10" Click="UsersBtn_OnClickButton_Click" Background="LightBlue">
+                    <Button.Content>
+                        <StackPanel>
+                          
+                            <TextBlock Text="Użytkownicy" Margin="0 5 0 0"></TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </ListView>
+        </Grid>
+        <!-- Header -->
+        <Image Source="Images/spark.png" Grid.ColumnSpan="2" Height="80" VerticalAlignment="Top" Margin="5"></Image>
+        <TextBlock TextAlignment="Center" Grid.ColumnSpan="2" Text="Invoice Manager v. 1.01" VerticalAlignment="Bottom"></TextBlock>
+
+        <!-- Main-->
+        <Grid x:Name ="dataViewGrid"  Grid.Row ="1" Grid.Column="1" Margin="10" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <Label x:Name ="filter1Label" Content ="Nazwa"></Label>
+                <TextBox x:Name="filter1Box" Width ="100"></TextBox>
+                <Label x:Name ="filter2Label" Content ="Symbol"></Label>
+                <TextBox x:Name="filter2Box" Width ="100"></TextBox>
+                <Label x:Name ="filter3Label" Content ="NIP"></Label>
+                <TextBox x:Name="filter3Box" Width ="100"></TextBox>
+                <Label x:Name ="fromDateLabel" Content ="Data od: "></Label>
+                <DatePicker x:Name="fromDatePicker"></DatePicker>
+                <Label x:Name ="toDateLabel" Content ="Data do: "></Label>
+                <DatePicker x:Name="toDatePicker"></DatePicker>
+                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 40 0 0" VerticalAlignment="Bottom">
+                <Label x:Name ="filter4Label" Content ="Nr klienta"></Label>
+                <TextBox x:Name="filter4Box" Width ="85"></TextBox>
+                <Label x:Name ="filter5Label" Content ="Typ klienta"></Label>
+                <ComboBox x:Name="filter5Box" Width ="80"></ComboBox>
+                <Button x:Name="addBtn" Click="AddBtn_OnClick" Width="20" Margin="10 5 0 5">+</Button>
+                <Button x:Name="removeBtn" Click="RemoveBtn_OnClickBtn_OnClick" Width="20" Margin="10 5 0 5">-</Button>
+            </StackPanel>
+            <DataGrid x:Name ="dataGridMain" Grid.Row="1" Width ="Auto" Height="Auto" Margin="0 10 0 0" Cursor="Help"/>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column ="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Label Content="Zalogowany jako: "></Label>
+                <Label x:Name="isLoggedLabel" Content="isLogged "></Label>
+                <Label  Content="PID: " Margin="5 0 0 0"></Label>
+                <Label x:Name="pidLabel" Content="pid "></Label>
+            </StackPanel>
+            
+        </Grid>
+    </Grid>
+</Window>

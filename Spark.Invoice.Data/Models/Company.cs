@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace Spark.Invoice.Data.Models
 {
     public enum ClientType {
-        Unveryfied = 0,
-        Veryfied = 1
+        Unverified = 0,
+        Verified = 1
     }
     public class Company
     {
-        public Company()
-        {
-            CompanyAddresses = new List<CompanyAddress>();
-            BankAccounts = new List<IdBankAccounts>();
-        }
+        //public Company()
+        //{
+        //   // CompanyAddresses = new List<CompanyAddress>();
+        //    BankAccounts = new List<IdBankAccounts>();
+        //}
 
         public int Id { get; set; }
         public string NIP { get; set; }
@@ -31,8 +31,14 @@ namespace Spark.Invoice.Data.Models
         public string Mobile_Phone { get; set; }
         public string Email { get; set; }
         public string WWW { get; set; }
-        public List<CompanyAddress> CompanyAddresses { get; set; }
-        public List<IdBankAccounts> BankAccounts { get; set; }
+       // public List<CompanyAddress> CompanyAddresses { get; set; }
+       // public List<IdBankAccounts> BankAccounts { get; set; }
+        public string Full_Address { get; set; }
+        public string Postal_Code { get; set; }
+        public string Country { get; set; }
+        public string City { get; set; }
+        
+        
 
         //public Company()
         //{

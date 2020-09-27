@@ -1,0 +1,77 @@
+﻿<Window x:Class="Spark.Invoice.Manager.WPF2.CompanyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Spark.Invoice.Manager.WPF2"
+        mc:Ignorable="d"
+        Title="CompanyWindow" Height="350">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid ColumnSpan="2">
+            <Label HorizontalAlignment="Center" FontSize="16" FontWeight="Heavy"> Dane kontrahenta </Label>
+        </Grid>
+        <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Row="1">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <Label x:Name="idLabel" >Nr klienta: </Label>
+                <TextBox x:Name="idTextBox" Width="50"></TextBox>
+                <Label x:Name="shortNameLabel" >Symbol</Label>
+                <TextBox x:Name="shortNameTextBox" Width="75"></TextBox>
+                <Label x:Name="clientTypeLabel">Typ:</Label>
+                <ComboBox x:Name="clientTypeComboBox" Width="80"></ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 35 0 0" VerticalAlignment="Top">
+                <Label >Nazwa firmy:</Label>
+                <TextBox x:Name="nameTextBox" Width="270"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 70 0 0" VerticalAlignment="Top">
+                <Label x:Name="addressLabel" >Adres rozliczeniowy:</Label>
+                <TextBox x:Name="addressTextBox" Width="230"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 105 0 0" VerticalAlignment="Top">
+                <Label x:Name="postalCpdeLabel" >Kod pocztowy:</Label>
+                <TextBox x:Name="postalCodeTextBox" Width="65"></TextBox>
+                <Label x:Name="cityCpdeLabel" >Miasto:</Label>
+                <TextBox x:Name="cityTextBox" Width="65"></TextBox>
+                <Label x:Name="countryCpdeLabel" >Kraj:</Label>
+                <ComboBox x:Name="countryComboBox" Width="50"></ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 140 0 0" VerticalAlignment="Top">
+                <Label x:Name="nipLabel" >NIP:</Label>
+                <TextBox x:Name="nipTextBox" Width="100"></TextBox>
+                <Label x:Name="paymentMethodLabel" Margin="15 0 0 0 ">Metoda płatności:</Label>
+                <ComboBox x:Name="paymentMethodComboBox" Width="100"></ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 175 0 0" VerticalAlignment="Top">
+                <Label x:Name="phoneLabel" >Telefon:</Label>
+                <TextBox x:Name="phoneTextBox" Width="100"></TextBox>
+                <Label x:Name="emailLabel" Margin="55 0 0 0" >E-mail:</Label>
+                <TextBox x:Name="emailTextBox" Width="100"></TextBox>
+            </StackPanel>
+        </Grid>
+        <TabControl x:Name="tabControl" Grid.Column="1" HorizontalAlignment="Left" Height="232" Margin="0,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="370">
+            <TabItem Header="Rozliczenia">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Oddziały">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="CRM">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Margin="0 0 0 5">
+            <Button x:Name="closeButton" Click="CloseButton_OnClickButton_OnClick">Zamknij</Button>
+            <Button x:Name="saveButton" Click="SaveButton_OnClick" Margin="10 0 0 0">Zapisz</Button>
+        </StackPanel>
+    </Grid>
+</Window>

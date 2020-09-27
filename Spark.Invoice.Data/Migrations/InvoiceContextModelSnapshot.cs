@@ -32,19 +32,13 @@ namespace Spark.Invoice.Data.Migrations
                     b.Property<string>("Address_Country")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Address_Loc_Number")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Address_Pos_Number")
+                    b.Property<string>("Address_Full")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address_Postal_Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Address_Street")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CompanyId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -93,13 +87,22 @@ namespace Spark.Invoice.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Client_Type")
                         .HasColumnType("int");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Discount")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Full_Address")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Mobile_Phone")
@@ -117,6 +120,9 @@ namespace Spark.Invoice.Data.Migrations
                     b.Property<string>("Phone_Number")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Postal_Code")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Short_Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -126,21 +132,6 @@ namespace Spark.Invoice.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
-                });
-
-            modelBuilder.Entity("Spark.Invoice.Data.Models.CompanyAddress", b =>
-                {
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AddressId", "CompanyId");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("CompanyAddress");
                 });
 
             modelBuilder.Entity("Spark.Invoice.Data.Models.Currency", b =>
@@ -164,19 +155,21 @@ namespace Spark.Invoice.Data.Migrations
                     b.ToTable("Currencies");
                 });
 
-            modelBuilder.Entity("Spark.Invoice.Data.Models.IdBankAccounts", b =>
+            modelBuilder.Entity("Spark.Invoice.Data.Models.IndividualRights", b =>
                 {
-                    b.Property<int>("CompanyId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("IsLoggedId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BankAccountId")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.HasKey("CompanyId", "BankAccountId");
+                    b.HasIndex("IsLoggedId");
 
-                    b.HasIndex("BankAccountId");
-
-                    b.ToTable("IdBankAccounts");
+                    b.ToTable("IndividualRights");
                 });
 
             modelBuilder.Entity("Spark.Invoice.Data.Models.Invoice", b =>
@@ -244,6 +237,30 @@ namespace Spark.Invoice.Data.Migrations
                     b.ToTable("Invoices");
                 });
 
+            modelBuilder.Entity("Spark.Invoice.Data.Models.IsLogged", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ComputerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Session")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IsLogged");
+                });
+
             modelBuilder.Entity("Spark.Invoice.Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -269,7 +286,9 @@ namespace Spark.Invoice.Data.Migrations
                 {
                     b.HasOne("Spark.Invoice.Data.Models.Company", null)
                         .WithMany("Address")
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Spark.Invoice.Data.Models.BankAccount", b =>
@@ -279,34 +298,11 @@ namespace Spark.Invoice.Data.Migrations
                         .HasForeignKey("CompanyId");
                 });
 
-            modelBuilder.Entity("Spark.Invoice.Data.Models.CompanyAddress", b =>
+            modelBuilder.Entity("Spark.Invoice.Data.Models.IndividualRights", b =>
                 {
-                    b.HasOne("Spark.Invoice.Data.Models.Address", null)
-                        .WithMany("CompanyAddresses")
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Spark.Invoice.Data.Models.Company", null)
-                        .WithMany("CompanyAddresses")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Spark.Invoice.Data.Models.IdBankAccounts", b =>
-                {
-                    b.HasOne("Spark.Invoice.Data.Models.BankAccount", null)
-                        .WithMany("BankAccounts")
-                        .HasForeignKey("BankAccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Spark.Invoice.Data.Models.Company", null)
-                        .WithMany("BankAccounts")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Spark.Invoice.Data.Models.IsLogged", null)
+                        .WithMany("Rights")
+                        .HasForeignKey("IsLoggedId");
                 });
 
             modelBuilder.Entity("Spark.Invoice.Data.Models.Invoice", b =>

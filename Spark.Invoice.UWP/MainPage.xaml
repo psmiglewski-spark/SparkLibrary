@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="Spark.Invoice.UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Spark.Invoice.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- Left sidebar buttons -->
+        <Grid Grid.Row ="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition>
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <ListView Grid.Row="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="CustomersBtn"  Width="134" Margin="10 10" Click="CustomersBtn_OnClickButton_Click" Background="LightBlue" Grid.Row="0">
+                    <Button.Content>
+                        <StackPanel >
+                            <SymbolIcon Symbol="Contact"></SymbolIcon>
+                            <TextBlock Text="Kontrahenci" Margin="0 5 0 0" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                    <Button x:Name="AddCustomerBtn" Visibility="Collapsed" Height="30" Width="140"  Grid.Row="1" Margin="30 0 0 0" Background="LightBlue" FontSize="10">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Add" Width="20" HorizontalAlignment="Left" Height="15"></SymbolIcon>
+                                <TextBlock Text="Dodaj kontrahenta"  VerticalAlignment="Top" FontSize="11"></TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                </Grid>
+                <Button x:Name="InvoiceBtn" VerticalAlignment="Top" Width="134" HorizontalAlignment="Center" Margin="10 10" Click="InvoiceBtn_OnClickButton_Click" Background="LightBlue">
+                    <Button.Content>
+                        <StackPanel>
+                            <SymbolIcon Symbol="Document"></SymbolIcon>
+                            <TextBlock Text="Faktury" Margin="0 5 0 0"></TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="UsersBtn" VerticalAlignment="Top" Width="134" HorizontalAlignment="Center" Margin="10 10" Click="UsersBtn_OnClickButton_Click" Background="LightBlue">
+                    <Button.Content>
+                        <StackPanel>
+                            <SymbolIcon Symbol="ContactInfo"></SymbolIcon>
+                            <TextBlock Text="Użytkownicy" Margin="0 5 0 0"></TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+            </ListView>
+        </Grid>
+        <!-- Header -->
+        <Image Source="Images/spark.png" Grid.ColumnSpan="2" Height="80" VerticalAlignment="Top" Margin="5"></Image>
+        <TextBlock TextAlignment="Center" Grid.ColumnSpan="2" Text="Invoice Manager v. 1.01" VerticalAlignment="Bottom"></TextBlock>
+    </Grid>
+</Page>

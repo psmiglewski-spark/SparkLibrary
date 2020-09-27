@@ -8,5 +8,10 @@
         xmlns:winForms="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
         mc:Ignorable="d"
         Title="MainWindow" WindowStartupLocation="CenterScreen" Height="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}" Width="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenWidthKey}}">
-        <Grid x:Name="MainGrid"/>
+    <Grid x:Name="MainGrid">
+        <Grid x:Name ="ViewGrid" HorizontalAlignment="Left" Height="804" Margin="275,183,0,0" VerticalAlignment="Top" Width="1643">
+            <DataGrid x:Name="MainDataGrid" HorizontalAlignment="Left" Height="734" Margin="0,60,0,0" VerticalAlignment="Top" Width="1633"/>
+        </Grid>
+
+    </Grid>
 </Window>

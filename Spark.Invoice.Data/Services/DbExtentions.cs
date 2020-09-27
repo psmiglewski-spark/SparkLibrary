@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Spark.Invoice.Data.Context;
 using Spark.Invoice.Data.Models;
 using Spark.Setup;
@@ -16,7 +17,7 @@ namespace Spark.Invoice.Data.Services
 {
     public static class DbExtentions
     {
-        private static InvoiceContext invoiceContext = new InvoiceContext();
+        
 
         // ADO.Net methods
         //public string connectionString { get; set; }
@@ -243,38 +244,71 @@ namespace Spark.Invoice.Data.Services
 
         public static void AddCompany(this Company company)
         {
+            var invoiceContext = new InvoiceContext();
             invoiceContext.Add(company);
             invoiceContext.SaveChanges();
         }
 
         public static void DeleteCompany(this Company company)
         {
-            invoiceContext.Remove(company);
-            invoiceContext.SaveChanges();
+            var invoiceContext = new InvoiceContext();
+            var companyAdresses = invoiceContext.Addresses.Where(a => a.CompanyId == company.Id).ToList();
+            if (companyAdresses.Count > 0)
+            {
+                invoiceContext.RemoveRange(companyAdresses);
+            }
+
+            try
+            {
+                invoiceContext.Remove(company);
+                invoiceContext.SaveChanges();
+            }
+            catch (NullReferenceException e)
+            {
+                MessageBox.Show("Brak wskazanej firmy do usunięcia");
+            }
+            
         }
 
         public static void UpdateCompany(this Company company, Company newCompany)
         {
+            var invoiceContext = new InvoiceContext();
             newCompany.Id = company.Id;
             company = newCompany;
             invoiceContext.Update(company);
             invoiceContext.SaveChanges();
         }
 
+        public static void AddIsLogged(this IsLogged isLogged)
+        {
+            var invoiceContext = new InvoiceContext();
+            invoiceContext.Add(isLogged);
+            invoiceContext.SaveChanges();
+        }
+        public static void DeleteIsLogged(this IsLogged isLogged)
+        {
+            var invoiceContext = new InvoiceContext();
+            invoiceContext.Remove(isLogged);
+            invoiceContext.SaveChanges();
+        }
+
         public static void AddUser(this User user)
         {
+            var invoiceContext = new InvoiceContext();
             invoiceContext.Add(user);
             invoiceContext.SaveChanges();
         }
 
         public static void DeleteUser(this User user)
         {
+            var invoiceContext = new InvoiceContext();
             invoiceContext.Remove(user);
             invoiceContext.SaveChanges();
         }
 
         public static void UpdateUser(this User user, User newUser)
         {
+            var invoiceContext = new InvoiceContext();
             newUser.Id = user.Id;
             user = newUser;
             invoiceContext.Update(user);
@@ -283,17 +317,20 @@ namespace Spark.Invoice.Data.Services
 
         public static void AddAddress(this Address address)
         {
+            var invoiceContext = new InvoiceContext();
             invoiceContext.Add(address);
             invoiceContext.SaveChanges();
         }
 
         public static void DeleteAddress(this Address address)
         {
+            var invoiceContext = new InvoiceContext();
             invoiceContext.Remove(address);
             invoiceContext.SaveChanges();
         }
         public static void UpdateAddress(this Address address, Address newAddress)
         {
+            var invoiceContext = new InvoiceContext();
             newAddress.Id = address.Id;
             address = newAddress;
             invoiceContext.Update(address);
@@ -302,18 +339,21 @@ namespace Spark.Invoice.Data.Services
 
         public static void AddBankAccount(this BankAccount bankAccount)
         {
+            var invoiceContext = new InvoiceContext();
             invoiceContext.Add(bankAccount);
             invoiceContext.SaveChanges();
         }
 
         public static void DeleteBankAccount(this BankAccount bankAccount)
         {
+            var invoiceContext = new InvoiceContext();
             invoiceContext.Remove(bankAccount);
             invoiceContext.SaveChanges();
         }
 
         public static void UpdateBankAccount(this Address bankAccount, Address newBankAccount)
         {
+            var invoiceContext = new InvoiceContext();
             newBankAccount.Id = bankAccount.Id;
             bankAccount = newBankAccount;
             invoiceContext.Update(bankAccount);
