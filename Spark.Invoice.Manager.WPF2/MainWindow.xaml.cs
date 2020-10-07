@@ -34,6 +34,40 @@ namespace Spark.Invoice.Manager.WPF2
             currentProcess = Process.GetCurrentProcess();
             var isLogged = new InvoiceContext().IsLogged.Where(l => l.Session == currentProcess.Id.ToString() && l.ComputerName == Environment.MachineName).FirstOrDefault();
             InitializeComponent();
+            MainWindowViewSetup();
+            CurrencyTableUpdate();
+            this.Closed += MainWindow_Closed;
+            isLoggedLabel.Content = isLogged.UserName;
+            pidLabel.Content = currentProcess.Id.ToString();
+            filter1Box.TextChanged += Filter1Box_TextChanged;
+            filter2Box.TextChanged += Filter2Box_TextChanged;
+            filter3Box.TextChanged += Filter3Box_TextChanged;
+            filter4Box.TextChanged += Filter4Box_TextChanged;
+            filter5Box.SelectionChanged += Filter5Box_SelectionChanged;
+            dataGridMain.MouseDoubleClick += DataGridMain_MouseDoubleClick;
+            
+
+        }
+
+        private void CurrencyTableUpdate()
+        {
+            var currencyTable = new CurrencyTable();
+            var currencyTableList = currencyTable.Currencies();
+            var checkCurrencyTable = new InvoiceContext().CurrencyTables
+                .Where(c => c.effectiveDate == currencyTable.effectiveDate)
+                .Any();
+
+            if (!checkCurrencyTable)
+            {
+                foreach (var currency in currencyTableList)
+                {
+                    currency.AddCurrency();
+                }
+            }
+        }
+
+        private void MainWindowViewSetup()
+        {
             fromDateLabel.Visibility = Visibility.Collapsed;
             fromDatePicker.Visibility = Visibility.Collapsed;
             toDateLabel.Visibility = Visibility.Collapsed;
@@ -48,17 +82,22 @@ namespace Spark.Invoice.Manager.WPF2
             filter3Box.Visibility = Visibility.Collapsed;
             filter2Box.Visibility = Visibility.Collapsed;
             filter1Box.Visibility = Visibility.Collapsed;
-            filter5Box.Items.Add(ClientType.Unverified);
-            filter5Box.Items.Add(ClientType.Verified);
-            filter5Box.Items.Add("Wszyscy");
-            this.Closed += MainWindow_Closed;
-            isLoggedLabel.Content = isLogged.UserName;
-            pidLabel.Content = currentProcess.Id.ToString();
-            filter1Box.TextChanged += Filter1Box_TextChanged;
-            filter2Box.TextChanged += Filter2Box_TextChanged;
-            filter3Box.TextChanged += Filter3Box_TextChanged;
-            filter4Box.TextChanged += Filter4Box_TextChanged;
-            filter5Box.SelectionChanged += Filter5Box_SelectionChanged;
+            addBtn.Visibility = Visibility.Collapsed;
+            removeBtn.Visibility = Visibility.Collapsed;
+            paymentMethodsBtn.Visibility = Visibility.Collapsed;
+            countriesBtn.Visibility = Visibility.Collapsed;
+            clientTypesBtn.Visibility = Visibility.Collapsed;
+            dataGridMain.Visibility = Visibility.Collapsed;
+            
+        }
+
+        
+        private void DataGridMain_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var selectedCompany = dataGridMain.SelectedItem as Company;
+            var newCompanyWindow = new CompanyWindow(selectedCompany);
+            newCompanyWindow.ShowDialog();
+            newCompanyWindow.Unloaded += NewCompanyWindow_Unloaded;
         }
 
         private void Filter2Box_TextChanged(object sender, TextChangedEventArgs e)
@@ -91,18 +130,14 @@ namespace Spark.Invoice.Manager.WPF2
             try
             {
                 var CompanyList = new List<Company>();
-                if (filter5Box.SelectedValue.ToString() == "Unverified")
-                {
-                    CompanyList = new InvoiceContext().Companies.Where(c => c.Name.Contains(filter1Box.Text) && c.NIP.Contains(filter3Box.Text) && c.Short_Name.Contains(filter2Box.Text) && c.Id.ToString().Contains(filter4Box.Text) && c.Client_Type == ClientType.Unverified).OrderBy(c => c.Name).ToList();
-                }
-                else if (filter5Box.SelectedValue.ToString() == "Verified")
-                {
-                    CompanyList = new InvoiceContext().Companies.Where(c => c.Name.Contains(filter1Box.Text) && c.NIP.Contains(filter3Box.Text) && c.Short_Name.Contains(filter2Box.Text) && c.Id.ToString().Contains(filter4Box.Text) && c.Client_Type == ClientType.Verified).OrderBy(c => c.Name).ToList();
-                }
-                else if (filter5Box.SelectedValue.ToString() == "Wszyscy")
+                if (filter5Box.SelectedValue.ToString() == "Wszyscy")
                 {
                     CompanyList = new InvoiceContext().Companies.Where(c => c.Name.Contains(filter1Box.Text) && c.NIP.Contains(filter3Box.Text) && c.Short_Name.Contains(filter2Box.Text) && c.Id.ToString().Contains(filter4Box.Text)).OrderBy(c => c.Name).ToList();
 
+                }
+                else
+                {
+                    CompanyList = new InvoiceContext().Companies.Where(c => c.Name.Contains(filter1Box.Text) && c.NIP.Contains(filter3Box.Text) && c.Short_Name.Contains(filter2Box.Text) && c.Id.ToString().Contains(filter4Box.Text) && c.Client_Type == filter5Box.SelectedValue.ToString()).OrderBy(c => c.Name).ToList();
                 }
                 dataGridMain.Columns.Clear();
                 CompanyDataGridFill(CompanyList);
@@ -138,7 +173,7 @@ namespace Spark.Invoice.Manager.WPF2
 
         private void UsersBtn_OnClickButton_Click(object sender, RoutedEventArgs e)
         {
-
+           
         }
 
         private void InvoiceBtn_OnClickButton_Click(object sender, RoutedEventArgs e)
@@ -148,15 +183,38 @@ namespace Spark.Invoice.Manager.WPF2
 
         private void CustomersBtn_OnClickButton_Click(object sender, RoutedEventArgs e)
         {
-            AddCustomerBtn.Visibility = Visibility.Visible;
-            var CompanyList = new InvoiceContext().Companies.OrderBy(c => c.Name).ToList();
-            CompanyDataGridFill(CompanyList);
+           // AddCustomerBtn.Visibility = Visibility.Visible;
+           dataGridMain.Visibility = Visibility.Visible;
+           var CompanyList = new InvoiceContext().Companies.OrderBy(c => c.Name).ToList();
+           CompanyDataGridFill(CompanyList);
+           ClientTypeComboBoxFill();
+           
         }
 
+        private void ClientTypeComboBoxFill()
+        {
+            var clientTypes = new InvoiceContext().ClientTypes.Select(c => c.Client_Type);
+            filter5Box.Items.Add("Wszyscy");
+            foreach (var clientType in clientTypes)
+            {
+                filter5Box.Items.Add(clientType);
+            }
+            
+            filter5Box.SelectedValue = "Wszyscy";
+        }
 
         private void AddBtn_OnClick(object sender, RoutedEventArgs e)
         {
-            new CompanyWindow().ShowDialog();
+            var newCompanyWindow = new CompanyWindow();
+            newCompanyWindow.ShowDialog();
+            newCompanyWindow.Unloaded += NewCompanyWindow_Unloaded;
+        }
+
+        private void NewCompanyWindow_Unloaded(object sender, RoutedEventArgs e)
+        {
+            var CompanyList = new InvoiceContext().Companies.OrderBy(c => c.Name).ToList();
+            dataGridMain.Columns.Clear();
+            CompanyDataGridFill(CompanyList);
         }
 
         private void RemoveBtn_OnClickBtn_OnClick(object sender, RoutedEventArgs e)
@@ -164,8 +222,9 @@ namespace Spark.Invoice.Manager.WPF2
             var selectedCompany = dataGridMain.SelectedItem as Company;
             if (selectedCompany != null)
             {
-                var CompanyList = new InvoiceContext().Companies.OrderBy(c => c.Name).ToList();
+                
                 selectedCompany.DeleteCompany();
+                var CompanyList = new InvoiceContext().Companies.OrderBy(c => c.Name).ToList();
                 dataGridMain.Columns.Clear();
                 CompanyDataGridFill(CompanyList);
             }
@@ -193,24 +252,60 @@ namespace Spark.Invoice.Manager.WPF2
             filter3Box.Visibility = Visibility.Visible;
             filter2Box.Visibility = Visibility.Visible;
             filter1Box.Visibility = Visibility.Visible;
-            
+            addBtn.Visibility = Visibility.Visible;
+            removeBtn.Visibility = Visibility.Visible;
             //dataGridMain.Visibility = Visibility.Visible;
             dataGridMain.AutoGenerateColumns = false;
             dataGridMain.ItemsSource = null;
-            dataGridMain.AlternatingRowBackground = new SolidColorBrush(Colors.YellowGreen);
-            
+            dataGridMain.AlternatingRowBackground = new SolidColorBrush(Colors.LightSlateGray);
             dataGridMain.ItemsSource = CompanyList;
-
-
             //dataGridMain.Columns.Add(new DataGridCheckBoxColumn() { Header = new CheckBox() });
             dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "Id", Binding = new Binding("Id")});
             dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "Nazwa Firmy", Binding = new Binding("Name") });
             dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "Symbol", Binding = new Binding("Short_Name") });
             dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "NIP", Binding = new Binding("NIP") });
             dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "Typ", Binding = new Binding("Client_Type") });
-            
+            dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "Adres firmy", Binding = new Binding("Full_Address") });
+            dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "Kod Poczt.", Binding = new Binding("Postal_Code") });
+            dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "Miasto", Binding = new Binding("City") });
+            dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "Kraj", Binding = new Binding("Country") });
+            dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "E-mail", Binding = new Binding("Email") });
+            dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "Telefon", Binding = new Binding("Phone_Number") });
+            dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "Metoda płatności", Binding = new Binding("Payment_Method") });
+            dataGridMain.Columns.Add(new DataGridTextColumn() { Header = "Rabat", Binding = new Binding("Discount") });
+
         }
 
-        
+
+        private void DictionariesBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (countriesBtn.Visibility == Visibility.Visible && paymentMethodsBtn.Visibility == Visibility.Visible && clientTypesBtn.Visibility == Visibility.Visible)
+            {
+                paymentMethodsBtn.Visibility = Visibility.Collapsed;
+                clientTypesBtn.Visibility = Visibility.Collapsed;
+                countriesBtn.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                countriesBtn.Visibility = Visibility.Visible;
+                clientTypesBtn.Visibility = Visibility.Visible;
+                paymentMethodsBtn.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void PaymentMethodsBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CountriesBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ClientTypesBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

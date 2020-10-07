@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spark.Invoice.Data.Context;
 
 namespace Spark.Invoice.Data.Migrations
 {
     [DbContext(typeof(InvoiceContext))]
-    partial class InvoiceContextModelSnapshot : ModelSnapshot
+    [Migration("20201002230444_dict")]
+    partial class dict
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -177,9 +179,6 @@ namespace Spark.Invoice.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CurrencyTableId")
-                        .HasColumnType("int");
-
                     b.Property<string>("code")
                         .HasColumnType("nvarchar(max)");
 
@@ -191,30 +190,7 @@ namespace Spark.Invoice.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CurrencyTableId");
-
                     b.ToTable("Currencies");
-                });
-
-            modelBuilder.Entity("Spark.Invoice.Data.Models.CurrencyTable", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("effectiveDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("no")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("table")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CurrencyTables");
                 });
 
             modelBuilder.Entity("Spark.Invoice.Data.Models.IndividualRights", b =>
@@ -373,13 +349,6 @@ namespace Spark.Invoice.Data.Migrations
                     b.HasOne("Spark.Invoice.Data.Models.Company", null)
                         .WithMany("BankAccount")
                         .HasForeignKey("CompanyId");
-                });
-
-            modelBuilder.Entity("Spark.Invoice.Data.Models.Currency", b =>
-                {
-                    b.HasOne("Spark.Invoice.Data.Models.CurrencyTable", null)
-                        .WithMany("rates")
-                        .HasForeignKey("CurrencyTableId");
                 });
 
             modelBuilder.Entity("Spark.Invoice.Data.Models.IndividualRights", b =>

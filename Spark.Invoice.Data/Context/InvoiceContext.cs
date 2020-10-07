@@ -16,12 +16,14 @@ namespace Spark.Invoice.Data.Context
         public DbSet<Models.Invoice> Invoices { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
-        public DbSet<Currency> Currencies { get; set; }     
-        public ClientType ClientTypes { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<IsLogged> IsLogged { get; set; }
         public DbSet<IndividualRights> IndividualRights { get; set; }
-
+        public DbSet<ClientType> ClientTypes { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<CurrencyTable> CurrencyTables { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

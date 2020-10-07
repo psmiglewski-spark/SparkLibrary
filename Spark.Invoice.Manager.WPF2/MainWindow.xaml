@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Spark.Invoice.Manager.WPF2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024">
+        Title="MainWindow" Height="768" Width="1324.902">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="Auto" MinWidth="1024"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -64,10 +65,21 @@
                         </StackPanel>
                     </Button.Content>
                 </Button>
+                <Button x:Name="DictionariesBtn" VerticalAlignment="Top" Width="134" HorizontalAlignment="Center" Margin="10 10" Click="DictionariesBtn_OnClick" Background="LightBlue">
+                    <Button.Content>
+                        <StackPanel>
+
+                            <TextBlock Text="Słowniki" Margin="0 5 0 0"></TextBlock>
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="paymentMethodsBtn" Margin="30 0" Background="White" BorderBrush="White" Content="Metody płatności" Click="PaymentMethodsBtn_OnClick"></Button>
+                <Button x:Name="countriesBtn" Margin="30 0" Background="White" BorderBrush="White" Content="Kraje" Click="CountriesBtn_OnClick"></Button>
+                <Button x:Name="clientTypesBtn" Margin="30 0" Background="White" BorderBrush="White" Content="Typy klientów" Click="ClientTypesBtn_OnClick"></Button>
             </ListView>
         </Grid>
         <!-- Header -->
-        <Image Source="Images/spark.png" Grid.ColumnSpan="2" Height="80" VerticalAlignment="Top" Margin="5"></Image>
+        <Image Source="Images/spark.png" Grid.ColumnSpan="2" Height="80" VerticalAlignment="Top" Margin="6"></Image>
         <TextBlock TextAlignment="Center" Grid.ColumnSpan="2" Text="Invoice Manager v. 1.01" VerticalAlignment="Bottom"></TextBlock>
 
         <!-- Main-->
@@ -87,19 +99,20 @@
                 <DatePicker x:Name="fromDatePicker"></DatePicker>
                 <Label x:Name ="toDateLabel" Content ="Data do: "></Label>
                 <DatePicker x:Name="toDatePicker"></DatePicker>
-                
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0 40 0 0" VerticalAlignment="Bottom">
                 <Label x:Name ="filter4Label" Content ="Nr klienta"></Label>
                 <TextBox x:Name="filter4Box" Width ="85"></TextBox>
                 <Label x:Name ="filter5Label" Content ="Typ klienta"></Label>
                 <ComboBox x:Name="filter5Box" Width ="80"></ComboBox>
                 <Button x:Name="addBtn" Click="AddBtn_OnClick" Width="20" Margin="10 5 0 5">+</Button>
                 <Button x:Name="removeBtn" Click="RemoveBtn_OnClickBtn_OnClick" Width="20" Margin="10 5 0 5">-</Button>
+                
             </StackPanel>
-            <DataGrid x:Name ="dataGridMain" Grid.Row="1" Width ="Auto" Height="Auto" Margin="0 10 0 0" Cursor="Help"/>
+            <StackPanel Orientation="Horizontal" Margin="0 40 0 0" VerticalAlignment="Bottom">
+                
+            </StackPanel>
+            <DataGrid x:Name ="dataGridMain" Grid.Row="1" Width ="Auto" Height="Auto" Margin="0 10 0 0" Cursor="Help" IsReadOnly="True"/>
         </Grid>
-        <Grid Grid.Row="2" Grid.Column ="2">
+        <Grid Grid.Row="2" Grid.Column ="1">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Label Content="Zalogowany jako: "></Label>
                 <Label x:Name="isLoggedLabel" Content="isLogged "></Label>

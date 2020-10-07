@@ -359,6 +359,20 @@ namespace Spark.Invoice.Data.Services
             invoiceContext.Update(bankAccount);
             invoiceContext.SaveChanges();
         }
+
+        public static void AddCurrency(this Currency currency)
+        {
+            var invoiceContext = new InvoiceContext();
+            invoiceContext.Add(currency);
+            invoiceContext.SaveChanges();
+        }
+
+        public static void AddCurrencyTable(this CurrencyTable currencyTable)
+        {
+            var invoiceContext = new InvoiceContext();
+            invoiceContext.Add(currencyTable);
+            invoiceContext.SaveChanges();
+        }
     }
 }
 

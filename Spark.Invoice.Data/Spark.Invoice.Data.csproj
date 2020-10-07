@@ -212,14 +212,26 @@
     <Compile Include="Migrations\20200927091344_cc2.designer.cs">
       <DependentUpon>20200927091344_cc2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20201002230444_dict.cs" />
+    <Compile Include="Migrations\20201002230444_dict.designer.cs">
+      <DependentUpon>20201002230444_dict.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201003085418_curencyTables.cs" />
+    <Compile Include="Migrations\20201003085418_curencyTables.designer.cs">
+      <DependentUpon>20201003085418_curencyTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\InvoiceContextModelSnapshot.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\BankAccount.cs" />
+    <Compile Include="Models\ClientType.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Currency.cs" />
+    <Compile Include="Models\CurrencyTable.cs" />
     <Compile Include="Models\IndividualRights.cs" />
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\IsLogged.cs" />
+    <Compile Include="Models\PaymentMethod.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DbExtentions.cs" />

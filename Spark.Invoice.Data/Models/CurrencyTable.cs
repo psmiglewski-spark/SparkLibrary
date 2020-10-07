@@ -5,16 +5,18 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Spark.Invoice.Data.Context;
+using Spark.Invoice.Data.Services;
 
-namespace Spark.Bussiness.Library
+namespace Spark.Invoice.Data.Models
 {
-    class CurrencyTables
+    public class CurrencyTable
     {
+        public int Id { get; set; }
         public string table { get; set; }
         public string no { get; set; }
         public string effectiveDate { get; set; }
         public List<Currency> rates { get; set; }
-
 
         static async Task<string> GetURI(Uri u)
         {
@@ -32,45 +34,29 @@ namespace Spark.Bussiness.Library
 
         public List<Currency> Currencies()
         {
-            var _currencyTableList = new List<CurrencyTables>();
+            var _currencyTableList = new List<CurrencyTable>();
             var _currencyList = new List<Currency>();
             string jsonString;
 
             var t = Task.Run(() => GetURI(new Uri("https://api.nbp.pl/api/exchangerates/tables/A/?format=json")));
             t.Wait();
             jsonString = t.Result;
-            _currencyTableList = JsonConvert.DeserializeObject<List<CurrencyTables>>(jsonString);
+            _currencyTableList = JsonConvert.DeserializeObject<List<CurrencyTable>>(jsonString);
+
+            var table = (CurrencyTable) _currencyTableList[0];
             
-
             _currencyList = _currencyTableList[0].rates;
-
+            this.effectiveDate = table.effectiveDate;
+            var checkCurrencyTable = new InvoiceContext().CurrencyTables
+                .Where(c => c.effectiveDate == this.effectiveDate)
+                .Any();
+            if (!checkCurrencyTable)
+            {
+                table.AddCurrencyTable();
+            }
             return _currencyList;
         }
 
-
-
-        public float CheckExchangeRate(string currency, DateTime date, string jsonString)
-        {
-            var _currencyTableList = new List<CurrencyTables>();
-            var _currencyList = new List<Currency>();
-            //string jsonString;
-            //var db = new DataBase();
-            float result = 0f;
-            var index = 0;
-
-            //    jsonString = db.SelectCurrencyRatesTable(date.ToString("yyyyMMdd")).Rows[0]["Currency_Rates_Table_JsonString"].ToString();
-            _currencyTableList = JsonConvert.DeserializeObject<List<CurrencyTables>>(jsonString);
-            _currencyList = _currencyTableList[0].rates;
-
-            foreach (var _currency in _currencyList)
-            {
-                if (currency == _currency.code)
-                {
-                    result = _currency.mid;
-                }
-            }
-
-            return result;
-        }
+        
     }
 }
