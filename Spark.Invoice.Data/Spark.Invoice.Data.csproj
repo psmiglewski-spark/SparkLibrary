@@ -220,6 +220,10 @@
     <Compile Include="Migrations\20201003085418_curencyTables.designer.cs">
       <DependentUpon>20201003085418_curencyTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20201017165822_invoice.cs" />
+    <Compile Include="Migrations\20201017165822_invoice.designer.cs">
+      <DependentUpon>20201017165822_invoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\InvoiceContextModelSnapshot.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\BankAccount.cs" />

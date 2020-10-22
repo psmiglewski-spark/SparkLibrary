@@ -1,0 +1,118 @@
+﻿@page "/companydetail/{CompanyId}"
+
+
+<h1 class="page-title">Dane firmy @company.Name </h1>
+
+
+<div class="col-12 row">
+    <div class="col-2">
+        @*<img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{Employee.EmployeeId}.jpg")" class="img-responsive rounded-circle employee-detail-img" />*@
+    </div>
+    <div class="col-10 row">
+        <div class="col-xs-12 col-sm-8">
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Nazwa Firmy</label>
+                <div class="col-sm-8">
+                    <label type="text" class="form-control-plaintext">@company.Name</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Numer Klienta</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.Id.ToString()</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Symbol</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.Short_Name</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">NIP</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.NIP</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Typ firmy</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.Client_Type</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Numer Telefonu</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.Phone_Number</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Numer kom.</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.Mobile_Phone</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">E-mail</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.Email</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Strona WWW</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.WWW</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Adres</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.Full_Address</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Kod pocztowy</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.Postal_Code</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Miasto</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.City</label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Kraj</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.Country</label>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Metoda płatności</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.Payment_Method</label>
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Rabat</label>
+                <div class="col-sm-8">
+                    <label type="text" readonly class="form-control-plaintext">@company.Discount</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

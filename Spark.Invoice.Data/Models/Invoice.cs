@@ -18,6 +18,7 @@ namespace Spark.Invoice.Data.Models
         public DateTime Sale_Date { get; set; }
         public DateTime Payment_Date { get; set; }
         public string Payment_Method { get; set; }
+        public string InvoiceType { get; set; }
         public BankAccount Payment_Account { get; set; }
         public int SplitPayment { get; set; }
         public string Note { get; set; }

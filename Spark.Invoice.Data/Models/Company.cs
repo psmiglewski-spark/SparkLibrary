@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,8 +29,6 @@ namespace Spark.Invoice.Data.Models
         public string Mobile_Phone { get; set; }
         public string Email { get; set; }
         public string WWW { get; set; }
-       // public List<CompanyAddress> CompanyAddresses { get; set; }
-       // public List<IdBankAccounts> BankAccounts { get; set; }
         public string Full_Address { get; set; }
         public string Postal_Code { get; set; }
         public string Country { get; set; }

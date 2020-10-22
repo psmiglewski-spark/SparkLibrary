@@ -265,7 +265,7 @@ namespace Spark.Invoice.Data.Services
             }
             catch (NullReferenceException e)
             {
-                MessageBox.Show("Brak wskazanej firmy do usunięcia");
+              //  MessageBox.Show("Brak wskazanej firmy do usunięcia");
             }
             
         }

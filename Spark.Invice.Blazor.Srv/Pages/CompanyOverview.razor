@@ -1,0 +1,54 @@
+﻿@page "/CompanyOverview"
+
+<h1 class="page-title">Kontrahenci</h1>
+@if (company == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                @*<th></th>*@
+                <th>Kontrahent ID</th>
+                <th>Nazwa firmy</th>
+                <th>Symbol</th>
+                <th>numer NIP</th>
+            </tr>
+        <tr>
+            @*<th></th>*@
+            <td>
+              <input @bind-value="@idFilter" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+            </td>
+            <td>
+                <input @bind-value="@name" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+            </td>
+            <td>
+                <input @bind-value="@symbol" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+            </td>
+            <td>
+                <input @bind-value="@nip" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var c in company)
+        {
+            <tr>
+                <td>@c.Id </td>
+                <td>@c.Name </td>
+                <td>@c.Short_Name </td>
+                <td>@c.NIP </td>
+                <td><a href="@($"companydetail/{c.Id}")" class="btn btn-primary table-btn"> <i class="fas fa-info-circle"></i></a></td>
+                <td>
+                <a href="@($"companyedit/{c.Id}")" class="btn btn-primary table-btn">
+                    <i class="fas fa-edit"></i>
+                </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>  
+}
+

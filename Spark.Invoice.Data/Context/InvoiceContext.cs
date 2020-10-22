@@ -12,6 +12,16 @@ namespace Spark.Invoice.Data.Context
 {
     public class InvoiceContext : DbContext
     {
+        public InvoiceContext(DbContextOptions<InvoiceContext> options) : base(options)
+        {
+
+        }
+
+        public InvoiceContext()
+        {
+
+        }
+
         public DbSet<Company> Companies { get; set; }
         public DbSet<Models.Invoice> Invoices { get; set; }
         public DbSet<Address> Addresses { get; set; }
@@ -29,7 +39,8 @@ namespace Spark.Invoice.Data.Context
         {
             var config = new ConfigFile(System.IO.Directory.GetCurrentDirectory() + @"\config.ini");
             optionsBuilder.UseSqlServer(@"Server = ACERLAPTOP\SPARKDBENGINE; Database = InvoiceManager3; User Id = sa; Password = PIotreck1;");
-            
+
+
         }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)

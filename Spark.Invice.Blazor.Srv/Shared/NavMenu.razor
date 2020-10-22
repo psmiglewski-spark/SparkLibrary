@@ -1,0 +1,69 @@
+﻿
+
+<div class="bg-white" id="sidebar-wrapper">
+    <div class="sidebar-logo">
+        <p>zalogowany jako:</p>
+        <p>session ID:</p>
+        <a href="https://microsoft.com">Pomoc</a>
+    </div>
+    @*<div class="profile">
+        <div class="profile-bg">
+            <img class="img-responsive" src="images/profilePicture.jpg" />
+        </div>
+        <div class="profile-picture">
+            <img class="img-responsive circle account-photo" src="images/profilePicture.jpg" />
+        </div>
+    </div>*@
+<div class="menu list-group list-group-flush">
+ 
+    <NavLink class="list-group-item list-group-item-action bg-light" href="/" Match="NavLinkMatch.All" @onclick="OnInitializedAsync">
+            <span class="oi oi-home" aria-hidden="true"></span> Home
+        </NavLink>
+        
+            <NavLink  class="list-group-item list-group-item-action bg-light" id="menuNavLink" href="/companyoverview"  @onclick="GetIsKontrahenciMenuClicked">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Kontrahenci
+            </NavLink>
+            
+    <ul class="nav flex-column">
+        @if (!collapseNavMenu)
+        {
+            <li class="nav-item px-3">
+                <NavLink class="list-group-item list-group-item-action bg-light" href="/companyedit">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Dodaj kontrahenta
+                </NavLink>
+            </li>
+        }
+      
+        
+    </ul>
+    
+
+</div>
+</div>
+
+@code
+{
+    private int clickedMenu = 1;
+    private bool collapseNavMenu = true;
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+       
+    }
+
+  
+
+    public void GetIsKontrahenciMenuClicked()
+    {
+        if (clickedMenu % 2 == 0)
+        {
+            collapseNavMenu = true;
+        }
+        else
+        {
+            collapseNavMenu = false;
+        }
+        clickedMenu++;
+    }
+}

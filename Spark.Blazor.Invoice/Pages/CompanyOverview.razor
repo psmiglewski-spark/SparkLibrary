@@ -1,0 +1,30 @@
+﻿@page "/CompanyOverview"
+
+<h1 class="page-title">Kontrahenci</h1>
+@if (company == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Kontrahent ID</th>
+            <th>Nazwa firmy</th>
+            <th>Symbol</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var c in company)
+        {
+            <tr>
+                <td>@c.Id </td>
+                <td>@c.Name </td>
+                <td>@c.Short_Name </td>
+            </tr>
+        }
+        </tbody>
+    </table>  
+}
