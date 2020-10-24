@@ -15,7 +15,7 @@ namespace Spark.Invice.Blazor.Srv.Pages
 
         protected override Task OnInitializedAsync()
         {
-            company = new InvoiceContext().Companies.Where(c => c.Id == Int32.Parse(CompanyId)).FirstOrDefault();
+            company = new InvoiceContext().Companies.Where(c => c.Id == int.Parse(CompanyId)).FirstOrDefault();
             return base.OnInitializedAsync();
         }
     }

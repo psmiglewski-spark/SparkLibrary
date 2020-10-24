@@ -2,6 +2,7 @@
 @page "/companyedit/{idCompany}"
 @using Spark.Invoice.Data.Models;
 @using Spark.Invoice.Data.Services;
+@using System.Reflection.Metadata
 @inherits CompanyEdit1
 
 @if (!Saved)
@@ -9,180 +10,145 @@
 
     <section class="employee-edit">
 
-
-
-
         <div class="alert @StatusClass">@Message</div>
 
         <h1 class="page-title">Dane kontrahenta @_company.Name </h1>
 
-
         <EditForm Model="@_company" OnSubmit="@HandleValidSubmit">
 
-            <DataAnnotationsValidator/>
-            <ValidationSummary/>
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
             <div class="form-group row">
-                <label for="lastName" class="col-sm-3">Nazwa firmy: </label>
-                <InputText id="lastName" @bind-Value="@_company.Name" class="form-control col-sm-8" placeholder="Wpisz nazwę"></InputText>
-                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => @_company.Name)"/>
+                <label for="Name" class="col-sm-1">Nazwa firmy: </label>
+                <InputText id="Name" @bind-Value="@_company.Name" class="form-control col-sm-3" placeholder="Wpisz nazwę"></InputText>
+                <label for="symbol" style="margin-left: 15px; margin-right:4px" class="">Symbol: </label>
+                <InputText id="symbol" class="form-control col-sm-2" @bind-Value="@_company.Short_Name" placeholder="Symbol"></InputText>
+                <label for="country" style="margin-left: 15px; margin-right:4px" class="">Kraj: </label>
+                <InputText id="country" class="form-control col-sm-1" @bind-Value="@_company.Country" placeholder="kraj"></InputText>
+                <label for="NIP" style="margin-left: 15px; margin-right:4px" class="">NIP: </label>
+                <InputText id="NIP" class="form-control col-sm-1" @bind-Value="@_company.NIP" placeholder="NIP"></InputText>
+                @*<ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => @_company.Name)"/>*@
             </div>
 
             <div class="form-group row">
-                <label for="firstName" class="col-sm-3">NIP: </label>
-                <InputText id="firstName" class="form-control col-sm-8" @bind-Value="@_company.NIP" placeholder="NIP"></InputText>
-                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => @_company.NIP)"/>
-            </div>
-
-
-            <div class="form-group row">
-                <label for="firstName" class="col-sm-3">Symbol: </label>
-                <InputText id="firstName" class="form-control col-sm-8" @bind-Value="@_company.Short_Name" placeholder="Symbol"></InputText>
-                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => @_company.Short_Name)"/>
-            </div>
-
-            <div class="form-group row">
-                <label for="email" class="col-sm-3">Typ klienta: </label>
-                <InputText id="email" class="form-control col-sm-8" @bind-Value="@_company.Client_Type" placeholder="Typ"></InputText>
-                <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => @_company.Client_Type)"/>
-            </div>
-
-            <div class="form-group row">
-                <label for="street" class="col-sm-3">Rabat: </label>
-                <InputNumber id="street" class="form-control col-sm-8" @bind-Value="@_company.Discount" placeholder="Rabat"></InputNumber>
-
+                <label for="clientType" class="col-sm-1">Typ klienta: </label>
+                <InputSelect id="clientType" class="form-control col-sm-2" @bind-Value="@_company.Client_Type">
+                    <option value="TypKlienta"> </option>
+                    @foreach (var type in _clientType)
+                        {
+                        <option value="@type.Client_Type">@type.Client_Type</option>
+                        }
+                </InputSelect>
+                <label for="discount" style="margin-left: 15px; margin-right:4px" class="">Rabat: </label>
+                <InputNumber id="discount" class="form-control col-sm-1" @bind-Value="@_company.Discount" placeholder="Rabat"></InputNumber>
+                <label for="paymentMethod" style="margin-left: 15px; margin-right:4px">Metoda płatności: </label>
+                <InputSelect id="paymentMethod" class="form-control col-sm-2" @bind-Value="@_company.Payment_Method">
+                    <option value="Payment_Method_Name"> </option>
+                    @foreach (var method in _paymentMethods)
+                        {
+                        <option value="@method.Payment_Method_Name">@method.Payment_Method_Name</option>
+                        }
+                </InputSelect>
             </div>
 
             <div class="form-group row">
-                <label for="zip" class="col-sm-3">Metoda płatności: </label>
-                <InputText id="zip" class="form-control col-sm-8" @bind-Value="@_company.Payment_Method" placeholder="Metoda płatności"></InputText>
-
+                <label for="fullAddress" style="margin-left: 15px; margin-right:12px">Adres siedziby: </label>
+                <InputText id="fullAddress" class="form-control col-sm-8" @bind-Value="@_company.Full_Address" placeholder="Adres"></InputText>
             </div>
 
             <div class="form-group row">
-                <label for="city" class="col-sm-3">Telefon: </label>
-                <InputText id="city" class="form-control col-sm-8" @bind-Value="@_company.Phone_Number" placeholder="Tel."></InputText>
-
+                <label for="postalCode" style="margin-left: 15px; margin-right:12px">Kod pocztowy: </label>
+                <InputText id="postalCode" class="form-control col-sm-1" @bind-Value="@_company.Postal_Code" placeholder="kod pocztowy"></InputText>
+                <label for="city" style="margin-left: 15px; margin-right:4px">Miasto: </label>
+                <InputText id="city" class="form-control col-sm-1" @bind-Value="@_company.City" placeholder="miasto"></InputText>
+                <label for="phoneNumber" style="margin-left: 15px; margin-right:4px">Telefon: </label>
+                <InputText id="phoneNumber" class="form-control col-sm-1" @bind-Value="@_company.Phone_Number" placeholder="Tel."></InputText>
+                <label for="mobileNumber" style="margin-left: 15px; margin-right:4px">Tel. Kom.: </label>
+                <InputText id="mobileNumber" class="form-control col-sm-1" @bind-Value="@_company.Mobile_Phone" placeholder="tel.kom"></InputText>
+                <label for="email" style="margin-left: 15px; margin-right:4px">E-mail: </label>
+                <InputText id="email" class="form-control col-sm-1" @bind-Value="@_company.Email" placeholder="e-mail"></InputText>
             </div>
-
-            @*<div class="form-group row">
-                    <label for="country" class="col-sm-3">Country: </label>
-                    <InputSelect id="country" class="form-control col-sm-8" @bind-Value="@CountryId">
-                        @foreach (var country in Countries)
-                            {
-                            <option value="@country.CountryId">@country.Name</option>
-                            }
-
-                    </InputSelect>
-                </div>*@
-
             <div class="form-group row">
-                <label for="phonenumber" class="col-sm-3">Tel. Kom.: </label>
-                <InputText id="phonenumber" class="form-control col-sm-8" @bind-Value="@_company.Mobile_Phone" placeholder="tel.kom"></InputText>
+                <label for="www" style="margin-left: 15px; margin-right:12px">WWW: </label>
+                <InputText id="www" class="form-control col-sm-8" @bind-Value="@_company.WWW" placeholder="WWW"></InputText>
             </div>
-
-
-            <div class="form-group row">
-                <label for="phonenumber" class="col-sm-3">email: </label>
-                <InputText id="phonenumber" class="form-control col-sm-8" @bind-Value="@_company.Email" placeholder="e-mail"></InputText>
-            </div>
-
-
-            <div class="form-group row">
-                <label for="phonenumber" class="col-sm-3">WWW: </label>
-                <InputText id="phonenumber" class="form-control col-sm-8" @bind-Value="@_company.WWW" placeholder="WWW"></InputText>
-            </div>
-
-            <div class="form-group row">
-                <label for="phonenumber" class="col-sm-3">Miasto: </label>
-                <InputText id="phonenumber" class="form-control col-sm-8" @bind-Value="@_company.City" placeholder="miasto"></InputText>
-            </div>
-
-
-            <div class="form-group row">
-                <label for="phonenumber" class="col-sm-3">Adres: </label>
-                <InputText id="phonenumber" class="form-control col-sm-8" @bind-Value="@_company.Full_Address" placeholder="Adres"></InputText>
-            </div>
-
-            <div class="form-group row">
-                <label for="phonenumber" class="col-sm-3">Kraj: </label>
-                <InputText id="phonenumber" class="form-control col-sm-8" @bind-Value="@_company.Country" placeholder="kraj"></InputText>
-            </div>
-
-            <div class="form-group row">
-                <label for="phonenumber" class="col-sm-3">Kod pocztowy: </label>
-                <InputText id="phonenumber" class="form-control col-sm-8" @bind-Value="@_company.Postal_Code" placeholder="kod pocztowy"></InputText>
-            </div>
-            @*<div class="form-group row">
-                        <label for="longitude" class="col-sm-3">Longitude: </label>
-                        <InputNumber id="longitude" class="form-control col-sm-8" @bind-Value="@Employee.Longitude"></InputNumber>
-                    </div>
-
-                <div class="form-group row">
-                        <label for="latitude" class="col-sm-3">Latitude: </label>
-                        <InputNumber id="latitude" class="form-control col-sm-8" @bind-Value="@Employee.Latitude"></InputNumber>
-                    </div>
-
-                <div class="form-group row">
-                        <label for="smoker" class=" offset-sm-3">
-                            <InputCheckbox id="smoker" @bind-Value="@Employee.Smoker"></InputCheckbox>
-                            &nbsp;Smoker
-                        </label>
-                    </div>
-
-                <div class="form-group row">
-                        <label for="jobcategory" class="col-sm-3">Job category: </label>
-                        <InputSelect id="jobcategory" class="form-control col-sm-8" @bind-Value="@JobCategoryId">
-                            @foreach (var jobCategory in JobCategories)
-                                {
-                                <option value="@jobCategory.JobCategoryId">@jobCategory.JobCategoryName</option>
-                                }
-                        </InputSelect>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="gender" class="col-sm-3">Gender: </label>
-                        <InputSelect id="gender" class="form-control col-sm-8" @bind-Value=@Employee.Gender>
-                            <option value="@(Gender.Male)">Male</option>
-                            <option value="@(Gender.Female)">Female</option>
-                            <option value="@(Gender.Other)">Other</option>
-                        </InputSelect>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="maritalstatus" class="col-sm-3">Marital status: </label>
-                        <InputSelect id="maritalstatus" class="form-control col-sm-8" @bind-Value=@Employee.MaritalStatus>
-                            <option value="@(MaritalStatus.Single)">Single</option>
-                            <option value="@(MaritalStatus.Married)">Married</option>
-                            <option value="@(MaritalStatus.Other)">Other</option>
-                        </InputSelect>
-                    </div>
-
-                <div class="form-group row">
-                        <label for="joineddate" class="col-sm-3">Joined on: </label>
-                        <InputDate id="joineddate" class="form-control col-sm-8" @bind-Value="@Employee.JoinedDate" placeholder="Enter date joined"></InputDate>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="exitdate" class="col-sm-3">Left on: </label>
-                        <InputDate id="exitdate" class="form-control col-sm-8" @bind-Value="@Employee.ExitDate" placeholder="Enter exit date"></InputDate>
-                    </div>
-
-                <div class="form-group row">
-                        <label for="comment" class="col-sm-3">Comment: </label>
-                        <InputTextArea id="comment" class="form-control col-sm-8" @bind-Value="@Employee.Comment" placeholder="Enter comment"></InputTextArea>
-                        <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => Employee.Comment)" />*@
-            @*</div>*@
-
+            <a class="btn btn-primary edit-btn text-white" @onclick="@MoreInfoBtnClick">Dane dodatkowe</a>
             <button type="submit" class="btn btn-primary edit-btn">Zapisz</button>
-
             @if (_company.Id > 0)
             {
                 <a class="btn btn-danger" @onclick="@DeleteCompany">
                     Usuń
                 </a>
             }
-
         </EditForm>
+    </section>
+    <section>
+        @if (buttonValue % 2 == 0)
+        {
+            <div class="w3-bar w3-black">
+                <button class="w3-bar-item w3-button tablink w3-green" onclick="openTab(event, 'finances')">Finansowe</button>
+                <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'departments')">Oddziały</button>
+                <button class="w3-bar-item w3-button tablink" onclick="openTab(event, 'bankAccounts')">Konta bankowe</button>
+            </div>
+
+            <div id="finances" class="w3-container w3-border tabName">
+                <div class="row">
+                    <div class="col-6 text-center border-right border-dark">
+                        <h3 class="text text-secondary">Konta bankowe</h3>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Numer konta</th>
+                                <th>Numer konta VAT</th>
+                                <th>Bank</th>
+                                <th>SWIFT</th>
+                                <th>Aktywne</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-6">Tytuł 1</div>
+                </div>
+            </div>
+
+            <div id="departments" class="w3-container w3-border tabName" style="display: none">
+                <div class="row">
+                    <div class="col-6 text-center border-right border-dark">
+                        <h3 class="text text-secondary">Konta bankowe</h3>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Adres</th>
+                                <th>Kod pocztowy</th>
+                                <th>Miasto</th>
+                                <th>Kraj</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var a in Addresses)
+                            {
+                                <tr>
+                                    <td>@a.Address_Full </td>
+                                    <td>@a.Address_Postal_Code </td>
+                                    <td>@a.Address_City </td>
+                                    <td>@a.Address_Country </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-6">Tytuł 1</div>
+                </div>
+            </div>
+
+            <div id="bankAccounts" class="w3-container w3-border tabName" style="display: none">
+               
+            </div>
+        }
+
 
 
     </section>

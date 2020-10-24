@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Spark.Invice.Blazor.Srv.Data;
+
 using Spark.Invoice.Data.Context;
 
 namespace Spark.Invice.Blazor.Srv

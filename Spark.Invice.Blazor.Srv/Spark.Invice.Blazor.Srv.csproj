@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -13,6 +13,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Spark.Invoice.Data\Spark.Invoice.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\Img\flags\poland.png" />
+    <None Include="wwwroot\js\TabComponent.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>

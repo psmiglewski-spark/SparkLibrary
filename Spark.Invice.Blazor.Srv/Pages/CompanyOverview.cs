@@ -13,7 +13,7 @@ namespace Spark.Invice.Blazor.Srv.Pages
         List<BankAccount> bankAccount = new List<BankAccount>();
         List<Address> address = new List<Address>();
         private string name = string.Empty;
-        private string idFilter = String.Empty;
+        private string idFilter = string.Empty;
         private string symbol = string.Empty;
         private string nip = string.Empty;
 
@@ -28,17 +28,8 @@ namespace Spark.Invice.Blazor.Srv.Pages
 
         private void Initialize_Company()
         {
-            Int32.TryParse(idFilter, out var filterId);
-            if (filterId != 0)
-            {
-                company = new InvoiceContext().Companies.Where(c => c.Name.Contains(name) && c.Id == filterId && c.Short_Name.Contains(symbol) && c.NIP.Contains(nip)).ToList();
-            }
-            else
-            {
-                company = new InvoiceContext().Companies.Where(c => c.Name.Contains(name) && c.Short_Name.Contains(symbol) && c.NIP.Contains(nip)).ToList();
-            }
-            
-            
+            int.TryParse(idFilter, out var filterId);
+            company = filterId != 0 ? new InvoiceContext().Companies.Where(c => c.Name.Contains(name) && c.Id == filterId && c.Short_Name.Contains(symbol) && c.NIP.Contains(nip)).ToList() : new InvoiceContext().Companies.Where(c => c.Name.Contains(name) && c.Short_Name.Contains(symbol) && c.NIP.Contains(nip)).ToList();
         }
 
 
@@ -52,6 +43,6 @@ namespace Spark.Invice.Blazor.Srv.Pages
         {
             this.address = new InvoiceContext().Addresses.ToList();
         }
-        
+
     }
 }
