@@ -39,6 +39,7 @@ namespace Spark.Invoice.Data.Context
         {
             var config = new ConfigFile(System.IO.Directory.GetCurrentDirectory() + @"\config.ini");
             optionsBuilder.UseSqlServer(@"Server = ACERLAPTOP\SPARKDBENGINE; Database = InvoiceManager3; User Id = sa; Password = PIotreck1;");
+         //   optionsBuilder.UseSqlServer(@"Server = VMI436130\SPARKSQL2016; Database = InvoiceManager3; User Id = sa; Password = PIotreck1;");
 
 
         }

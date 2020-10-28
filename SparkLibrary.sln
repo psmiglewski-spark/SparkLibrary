@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{76EBF98F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spark.Invoice.Manager.WPF2", "Spark.Invoice.Manager.WPF2\Spark.Invoice.Manager.WPF2.csproj", "{EFE710DF-F90F-42EA-939E-4D63FB045A94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spark.Invice.Blazor.Srv", "Spark.Invice.Blazor.Srv\Spark.Invice.Blazor.Srv.csproj", "{2AAC5754-8114-4C86-990F-99E12106A68D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spark.Invice.Blazor.Srv", "Spark.Invice.Blazor.Srv\Spark.Invice.Blazor.Srv.csproj", "{2AAC5754-8114-4C86-990F-99E12106A68D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EEE72391-B3AF-4972-B57C-8225DE23470E} = {EEE72391-B3AF-4972-B57C-8225DE23470E}
 	EndProjectSection

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spark.Invoice.Data.Context;
 
 namespace Spark.Invoice.Data.Migrations
 {
     [DbContext(typeof(InvoiceContext))]
-    partial class InvoiceContextModelSnapshot : ModelSnapshot
+    [Migration("20201028151320_invoice_1")]
+    partial class invoice_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,9 +256,6 @@ namespace Spark.Invoice.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Company_Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Company_Nip")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Company_Postal_Code")

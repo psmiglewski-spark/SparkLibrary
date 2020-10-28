@@ -20,7 +20,7 @@
             <span class="oi oi-home" aria-hidden="true"></span> Home
         </NavLink>
         
-            <NavLink  class="list-group-item list-group-item-action bg-light" id="menuNavLink" href="/companyoverview"  @onclick="GetIsKontrahenciMenuClicked">
+            <NavLink  class="list-group-item list-group-item-action bg-light" id="menuNavLink" href="/companyoverview"  @onclick="@GetIsKontrahenciMenuClicked">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Kontrahenci
             </NavLink>
             
@@ -37,22 +37,41 @@
         
     </ul>
     
-
+    
+    <NavLink  class="list-group-item list-group-item-action bg-light" id="menuNavLink_invoice" href="/invoiceoverview"  @onclick="@GetIsinvoiceMenuClicked">
+        <span class="oi oi-list-rich" aria-hidden="true"></span> Faktury
+    </NavLink>
+            
+    <ul class="nav flex-column" id="invoices_add">
+        @if (!collapseNavMenu_Invoice)
+        {
+            <li class="nav-item px-3">
+                <NavLink class="list-group-item list-group-item-action bg-light" id="add_invoice" href="/invoiceedit">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Dodaj fakturę
+                </NavLink>
+            </li>
+        }
+      
+        
+    </ul>
+   
 </div>
 </div>
 
 @code
 {
     private int clickedMenu = 1;
+    private int clickedMenuInvoice = 1;
     private bool collapseNavMenu = true;
-    
+    private bool collapseNavMenu_Invoice = true;
+
 
     protected override async Task OnInitializedAsync()
     {
-       
+
     }
 
-  
+
 
     public void GetIsKontrahenciMenuClicked()
     {
@@ -65,5 +84,18 @@
             collapseNavMenu = false;
         }
         clickedMenu++;
+    }
+
+    public void GetIsinvoiceMenuClicked()
+    {
+        if (clickedMenuInvoice % 2 == 0)
+        {
+            collapseNavMenu_Invoice = true;
+        }
+        else
+        {
+            collapseNavMenu_Invoice = false;
+        }
+        clickedMenuInvoice++;
     }
 }

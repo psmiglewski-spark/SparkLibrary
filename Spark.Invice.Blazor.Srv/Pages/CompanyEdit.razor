@@ -25,7 +25,13 @@
                 <label for="symbol" style="margin-left: 15px; margin-right:4px" class="">Symbol: </label>
                 <InputText id="symbol" class="form-control col-sm-2" @bind-Value="@_company.Short_Name" placeholder="Symbol"></InputText>
                 <label for="country" style="margin-left: 15px; margin-right:4px" class="">Kraj: </label>
-                <InputText id="country" class="form-control col-sm-1" @bind-Value="@_company.Country" placeholder="kraj"></InputText>
+                <InputSelect id="country" class="form-control col-sm-2" @bind-Value="@_company.Country">
+                    <option value="Kraj"> </option>
+                    @foreach (var country in _countries)
+                    {
+                        <option value="@country.Country_Code">@country.Country_Name</option>
+                    }
+                </InputSelect>
                 <label for="NIP" style="margin-left: 15px; margin-right:4px" class="">NIP: </label>
                 <InputText id="NIP" class="form-control col-sm-1" @bind-Value="@_company.NIP" placeholder="NIP"></InputText>
                 @*<ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => @_company.Name)"/>*@
@@ -74,7 +80,7 @@
                 <InputText id="www" class="form-control col-sm-8" @bind-Value="@_company.WWW" placeholder="WWW"></InputText>
             </div>
             <a class="btn btn-primary edit-btn text-white" @onclick="@MoreInfoBtnClick">Dane dodatkowe</a>
-            <button type="submit" class="btn btn-primary edit-btn">Zapisz</button>
+            <button type="submit" class="btn btn-primary edit-btn">@saveButton</button>
             @if (_company.Id > 0)
             {
                 <a class="btn btn-danger" @onclick="@DeleteCompany">
@@ -98,17 +104,58 @@
                         <h3 class="text text-secondary">Konta bankowe</h3>
                         <table class="table">
                             <thead>
-                            <tr>
-                                <th>Numer konta</th>
-                                <th>Numer konta VAT</th>
-                                <th>Bank</th>
-                                <th>SWIFT</th>
-                                <th>Aktywne</th>
-                            </tr>
+                                <tr>
+                                    <th>Numer konta</th>
+                                    <th>Numer konta VAT</th>
+                                    <th>Bank</th>
+                                    <th>SWIFT</th>
+                                    <th>Aktywne</th>
+                                </tr>
                             </thead>
                             <tbody>
+                                @if (_company.Id > 0)
+                                {
+                                    @foreach (var b in bankAccounts)
+                                    {
+                                <tr>
+                                    <td>@b.AccountNumber </td>
+                                    <td>@b.VatAccountNumber </td>
+                                    <td>@b.BankName </td>
+                                    <td>@b.SWIFT </td>
+                                    <td>@b.Active </td>
+                                    <td><a id="bankAccounts_delete" class="btn btn-danger btn-sm"> <i class="oi oi-minus" @onclick="@(e=>BankAccountDelete(b.ID))"></i></a></td>
+                                </tr>
+                                    }
+                                }
                             </tbody>
                         </table>
+                        @if (!NewBankForm)
+                        {
+                            <button class="btn btn-primary edit-btn" @onclick="BankFormOpen">Dodaj konto bankowe</button>
+                        }
+                        @if (NewBankForm)
+                        {
+                            <EditForm Model="@newBankAccount" OnSubmit="@BankAccountAdd">
+                                <div class="form-group row">
+                                    <label for="bankAccountNumber_new" style="margin-left: 15px; margin-right: 12px">Numer Konta: </label>
+                                    <InputText id="bankAccountNumber_new" class="form-control col-sm-8" @bind-Value="@newBankAccount.AccountNumber" placeholder="Adres"></InputText>
+                                </div>
+
+                        <div class="form-group row">
+                            <label for="accountNumberVat_new" style="margin-left: 15px; margin-right: 12px">Numer konta VAT: </label>
+                            <InputText id="accountNumberVAT_new" class="form-control col-sm-2" @bind-Value="@newBankAccount.VatAccountNumber" placeholder="kod pocztowy"></InputText>
+                        </div>
+                                <div class="form-group row">
+                                    <label for="bankName_new" style="margin-left: 15px; margin-right: 4px">Nazwa banku: </label>
+                                    <InputText id="bankName_new" class="form-control col-sm-2" @bind-Value="@newBankAccount.BankName" placeholder="miasto"></InputText>
+                                    <label for="swift_new" style="margin-left: 15px; margin-right: 4px">SWIFT: </label>
+                                    <InputText id="swift_new" class="form-control col-sm-2" @bind-Value="@newBankAccount.SWIFT" placeholder="kraj"></InputText>
+                                    <label for="active_new" style="margin-left: 15px; margin-right: 4px">Aktywne: </label>
+                                    <InputCheckbox id="active_new" class="form-control col-sm-2" @bind-Value="@newBankAccount.Active" ></InputCheckbox>
+                                </div>
+                                <button type="submit" class="btn btn-primary edit-btn">Zapisz</button>
+                            </EditForm>
+                        }
                     </div>
                     <div class="col-6">Tytuł 1</div>
                 </div>
@@ -117,28 +164,56 @@
             <div id="departments" class="w3-container w3-border tabName" style="display: none">
                 <div class="row">
                     <div class="col-6 text-center border-right border-dark">
-                        <h3 class="text text-secondary">Konta bankowe</h3>
+                        <h3 class="text text-secondary">Oddziały</h3>
+
                         <table class="table">
                             <thead>
-                            <tr>
-                                <th>Adres</th>
-                                <th>Kod pocztowy</th>
-                                <th>Miasto</th>
-                                <th>Kraj</th>
-                            </tr>
+                                <tr>
+                                    <th>Adres</th>
+                                    <th>Kod pocztowy</th>
+                                    <th>Miasto</th>
+                                    <th>Kraj</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach (var a in Addresses)
-                            {
-                                <tr>
-                                    <td>@a.Address_Full </td>
-                                    <td>@a.Address_Postal_Code </td>
-                                    <td>@a.Address_City </td>
-                                    <td>@a.Address_Country </td>
-                                </tr>
-                            }
+                                @if (_company.Id > 0)
+                                {
+                                    @foreach (var a in Addresses)
+                                    {
+                                        <tr>
+                                            <td>@a.Address_Full </td>
+                                            <td>@a.Address_Postal_Code </td>
+                                            <td>@a.Address_City </td>
+                                            <td>@a.Address_Country </td>
+                                            <td><a class="btn btn-danger btn-sm"> <i class="oi oi-minus" @onclick="@(e=>AddressDelete(a.Id))"></i></a></td>
+                                        </tr>
+                                    }
+                                }
                             </tbody>
                         </table>
+                        @if (!NewAddressForm)
+                        {
+                            <button class="btn btn-primary edit-btn" @onclick="AddressFormOpen">Dodaj oddział</button>
+                        }
+                        @if (NewAddressForm)
+                        {
+                            <EditForm Model="@newAddress" OnSubmit="@AddressAdd">
+                                <div class="form-group row">
+                                    <label for="fullAddress_new" style="margin-left: 15px; margin-right: 12px">Adres siedziby: </label>
+                                    <InputText id="fullAddress_new" class="form-control col-sm-8" @bind-Value="@newAddress.Address_Full" placeholder="Adres"></InputText>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="postalCode_new" style="margin-left: 15px; margin-right: 12px">Kod pocztowy: </label>
+                                    <InputText id="postalCode_new" class="form-control col-sm-2" @bind-Value="@newAddress.Address_Postal_Code" placeholder="kod pocztowy"></InputText>
+                                    <label for="city_new" style="margin-left: 15px; margin-right: 4px">Miasto: </label>
+                                    <InputText id="city_new" class="form-control col-sm-2" @bind-Value="@newAddress.Address_City" placeholder="miasto"></InputText>
+                                    <label for="country_new" style="margin-left: 15px; margin-right: 4px">Miasto: </label>
+                                    <InputText id="country_new" class="form-control col-sm-2" @bind-Value="@newAddress.Address_Country" placeholder="kraj"></InputText>
+                                </div>
+                                <button type="submit" class="btn btn-primary edit-btn">Zapisz</button>
+                            </EditForm>
+                        }
                     </div>
                     <div class="col-6">Tytuł 1</div>
                 </div>
@@ -152,10 +227,11 @@
 
 
     </section>
+    
 }
 else
 {
-        <div class="alert @StatusClass">@Message</div>
-        <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Powrót</a>
+    <div class="alert @StatusClass">@Message</div>
+    <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Powrót</a>
 
-    }
+}

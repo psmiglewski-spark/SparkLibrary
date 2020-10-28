@@ -1,0 +1,94 @@
+﻿@page "/invoiceoverview"
+
+
+@if (_invoice == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<div  style="width: 1640px; overflow-x:scroll">
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 40px"></th>
+                <th style="width: 40px"></th>
+                <th>Numer faktury</th>
+                <th>Kontrahent</th>
+                <th>Adres</th>
+                <th>numer NIP</th>
+                <th>Data wystawienia</th>
+                <th>Data płatności</th>
+                <th>Kwota netto</th>
+                <th>kwota VAT</th>
+                <th>kwota brutto</th>
+                <th>Płatność</th>
+            </tr>
+            <tr>
+                <td style="width: 40px"></td>
+                <td style="width: 40px"></td>
+                <td>
+                    <input @bind-value="@invoiceNrFilter" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+                </td>
+                <td>
+                    <input @bind-value="@invoiceCompnayFilter" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+                </td>
+                <td>
+                    <input @bind-value="@invoiceAddressFilter" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+                </td>
+                <td>
+                    <input @bind-value="@invoiceNipFilter" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+                </td>
+                <td>
+                    <input @bind-value="@invoiceIssueDateFilter" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+                </td>
+                <td>
+                    <input @bind-value="@invoicePaymentDateFilter" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+                </td>
+                <td>
+                    <input @bind-value="@invoiceNetValueFilter" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+                </td>
+                <td>
+                    <input @bind-value="@invoiceVatValueFilter" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+                </td>
+                <td>
+                    <input @bind-value="@invoiceGrossValueFilter" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+                </td>
+                <td>
+                    <input @bind-value="@invoicePaymentFilter" @bind-value:event="oninput" onkeyup="@OnInitializedAsync()" />
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in _invoice)
+            {
+            <tr class="border-bottom border-secondary">
+                <td >
+                    <a href="@($"invoiceedit/{i.Id}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="@($"invoiceedit/{i.Id}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-print"></i>
+                    </a>
+                </td>
+                <td>@i.Invoice_Number </td>
+                <td>@i.Company_Name </td>
+                <td>@i.Company_Full_Address @i.Company_Postal_Code @i.Company_City </td>
+                <td>@i.Company_Nip </td>
+                <td>@i.Issue_Date </td>
+                <td>@i.Payment_Date </td>
+                <td>@i.Net_Value </td>
+                <td>@i.VAT_Value </td>
+                <td>@i.Gross_Value </td>
+                <td>@i.Payment </td>
+
+
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+   
+}

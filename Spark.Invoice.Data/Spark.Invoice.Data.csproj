@@ -224,6 +224,22 @@
     <Compile Include="Migrations\20201017165822_invoice.designer.cs">
       <DependentUpon>20201017165822_invoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20201028141905_invoic12.cs" />
+    <Compile Include="Migrations\20201028141905_invoic12.designer.cs">
+      <DependentUpon>20201028141905_invoic12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201028143736_invoice13.cs" />
+    <Compile Include="Migrations\20201028143736_invoice13.designer.cs">
+      <DependentUpon>20201028143736_invoice13.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201028151320_invoice_1.cs" />
+    <Compile Include="Migrations\20201028151320_invoice_1.designer.cs">
+      <DependentUpon>20201028151320_invoice_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20201028173003_invoice4.cs" />
+    <Compile Include="Migrations\20201028173003_invoice4.designer.cs">
+      <DependentUpon>20201028173003_invoice4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\InvoiceContextModelSnapshot.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\BankAccount.cs" />

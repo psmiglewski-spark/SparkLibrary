@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Spark.Invoice.Data.Context;
 
 namespace Spark.Invoice.Data.Migrations
 {
     [DbContext(typeof(InvoiceContext))]
-    partial class InvoiceContextModelSnapshot : ModelSnapshot
+    [Migration("20201028143736_invoice13")]
+    partial class invoice13
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -244,24 +246,6 @@ namespace Spark.Invoice.Data.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Company_City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Company_Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Company_Full_Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Company_Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Company_Nip")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Company_Postal_Code")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Currency")
                         .HasColumnType("nvarchar(max)");
 
@@ -283,14 +267,14 @@ namespace Spark.Invoice.Data.Migrations
                     b.Property<string>("Issuing_User")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Kwota_Slownie")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<float>("Net_Value")
                         .HasColumnType("real");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Payment")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("Payment_AccountID")
                         .HasColumnType("int");

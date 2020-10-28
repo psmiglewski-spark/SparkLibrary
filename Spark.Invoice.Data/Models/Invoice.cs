@@ -12,8 +12,13 @@ namespace Spark.Invoice.Data.Models
     {
         public int Id { get; set; }
         public string Invoice_Number { get; set; }
-        public int ID_Client { get; set; }
-        public Company Client;
+        public int CompanyId { get; set; }
+        public string Company_Name { get; set; }
+        public string Company_Full_Address { get; set; }
+        public string Company_Postal_Code { get; set; }
+        public string Company_City { get; set; }
+        public string Company_Country { get; set; }
+        public string Company_Nip { get; set; }
         public DateTime Issue_Date { get; set; }
         public DateTime Sale_Date { get; set; }
         public DateTime Payment_Date { get; set; }
@@ -29,6 +34,7 @@ namespace Spark.Invoice.Data.Models
         public string Issuing_User { get; set; }
         public string Currency { get; set; }
         public float Currency_Change_Rate { get; set; }
-        public string Kwota_Slownie { get; set; }
+        public bool Payment { get; set; }  
+
     }
 }

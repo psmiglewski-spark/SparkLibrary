@@ -16,6 +16,7 @@ namespace Spark.Invice.Blazor.Srv.Pages
         private string idFilter = string.Empty;
         private string symbol = string.Empty;
         private string nip = string.Empty;
+       
 
         protected override Task OnInitializedAsync()
         {
